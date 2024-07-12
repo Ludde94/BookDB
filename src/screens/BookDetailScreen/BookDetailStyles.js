@@ -1,34 +1,67 @@
 import { StyleSheet } from 'react-native';
-import colors from '../../themes'; // Update the path if necessary to match your structure
+import colors from '../../themes'; // Ensure this is the correct path
 
 export default StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        backgroundColor: colors.background,  // Use the general background color
+        backgroundColor: colors.background,
     },
     image: {
-        width: '100%',  // Full width of the container
-        height: 300,  // Fixed height for the image
-        resizeMode: 'cover',  // Cover the frame of the image view
-        borderRadius: 10,  // Optional: Rounded corners for the image
-        marginBottom: 20,  // Space between the image and the text content
+        width: 150,
+        height: 225,
+        resizeMode: 'cover',
+        borderRadius: 10,
+        alignSelf: 'center',
+        marginBottom: 20,
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
         color: colors.text,
-        marginBottom: 10,  // Space below the title
+        textAlign: 'center',
+        marginBottom: 20,
     },
     detail: {
-        fontSize: 18,
-        color: colors.text,
-        marginBottom: 5,  // Space between details
+        fontSize: 16,
+        color: colors.secondary,
+        marginBottom: 5,
+        textAlign: 'center',
     },
     description: {
         fontSize: 16,
         color: colors.text,
-        marginTop: 10,  // Space above the description
-        textAlign: 'justify',  // Justify the text of the description
+        marginTop: 20,
+        textAlign: 'justify',
+        paddingHorizontal: 10,
+        paddingTop: 20,
+        paddingBottom: 20,
+        borderTopWidth: 2,
+        borderColor: colors.primary,
+    },
+    button: {
+        flex: 1,
+        paddingVertical: 12,
+        borderRadius: 5,
+        marginHorizontal: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    collectionButton: {
+        backgroundColor: colors.primary,
+    },
+    wantToReadButton: {
+        backgroundColor: colors.accent,
+    },
+    buttonText: {
+        color: colors.background,
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginTop: 20,
+        marginBottom: 20,  // Ensure there's also margin at the bottom
     }
 });
