@@ -1,17 +1,19 @@
+// App.js
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import colors from './src/themes';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import Navigation from './src/Navigation';
+import { StyleSheet, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import Navigation from './src/Navigation'; // Ensure this path matches your project structure
+import colors from './src/themes'; // Ensure this path matches your project structure
 
 export default function App() {
   return (
-    <><StatusBar style="light" backgroundColor={colors.primary} /><SafeAreaProvider>
+    <SafeAreaProvider>
+      <StatusBar style="light" backgroundColor={colors.primary} />
       <View style={styles.container}>
         <Navigation />
       </View>
-    </SafeAreaProvider></>
+    </SafeAreaProvider>
   );
 }
 

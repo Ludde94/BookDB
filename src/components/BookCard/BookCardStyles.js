@@ -1,7 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import colors from '../../themes';
 
-// Use the device's height to calculate modal height
 const screenHeight = Dimensions.get('window').height;
 
 export default StyleSheet.create({
@@ -42,10 +41,10 @@ export default StyleSheet.create({
         borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 5, // Space between buttons
+        marginBottom: 5,
     },
     buttonText: {
-        color: colors.background,
+        color: 'white',
         fontSize: 14,
         fontWeight: 'bold',
     },
@@ -54,7 +53,10 @@ export default StyleSheet.create({
         padding: 20,
         borderRadius: 10,
         alignItems: 'center',
-        maxHeight: screenHeight * 0.8, // Modal height to 80% of screen height
+        maxHeight: screenHeight * 0.8,
         width: '80%',
+    },
+    modalContent: {
+        maxHeight: screenHeight * 0.6,  // Limit the height for scrolling within the modal
     }
 });
