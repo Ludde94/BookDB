@@ -1,11 +1,11 @@
 const GOOGLE_BASE_URL = 'https://www.googleapis.com/books/v1/volumes';
 const LIBRIS_BASE_URL = 'https://api.libris.kb.se/xsearch';
 
-const searchBooks = async (searchQuery) => {
+const searchBooks = async (searchQuery, startIndex = 0) => {
   const isISBN = searchQuery.match(/^(97(8|9))?\d{9}(\d|X)?$/);
-
   const googleParams = new URLSearchParams({
     q: isISBN ? `isbn:${searchQuery}` : searchQuery,
+    startIndex,  // Add this line to control pagination
     maxResults: 10,
     fields: 'items(volumeInfo/title,volumeInfo/publishedDate,volumeInfo/authors,volumeInfo/publisher,volumeInfo/description,volumeInfo/industryIdentifiers,volumeInfo/categories,volumeInfo/imageLinks)'
   });
