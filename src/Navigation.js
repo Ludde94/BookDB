@@ -12,8 +12,13 @@ const Tab = createBottomTabNavigator();
 const AddBookStack = createStackNavigator();
 
 function AddBookStackScreen() {
+  
   return (
-    <AddBookStack.Navigator>
+    <AddBookStack.Navigator screenOptions={{
+      headerStyle: {
+        backgroundColor: colors.background
+      }
+    }}>
       <AddBookStack.Screen name="AddBook" component={AddBookScreen} options={{ title: 'Search' }} />
       <AddBookStack.Screen name="BookDetails" component={BookDetailScreen} options={{ title: 'Book Details' }} />
     </AddBookStack.Navigator>
