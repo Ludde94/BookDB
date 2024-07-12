@@ -1,44 +1,60 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import colors from '../../themes';
 
+// Use the device's height to calculate modal height
+const screenHeight = Dimensions.get('window').height;
+
 export default StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: colors.background,
-        paddingTop: 20,
-    },
     cardContainer: {
         flexDirection: 'row',
-        padding: 10,
-        marginBottom: 10,
-        backgroundColor: colors.secondaryBackground,
-        borderRadius: 8,
-        shadowColor: "#000",
-        shadowOffset: {
-        width: 0,
-        height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
+        paddingVertical: 15,
+        paddingHorizontal: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#e0e0e0',
+        backgroundColor: colors.background,
+        alignItems: 'center',
+        height: 150,
     },
     image: {
-        width: 100,
-        height: 150,
-        marginRight: 10,
+        width: 80,
+        height: 120,
+        borderRadius: 5,
     },
     infoContainer: {
         flex: 1,
+        marginLeft: 15,
         justifyContent: 'center',
     },
     title: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
         color: colors.text,
     },
     details: {
-        fontSize: 16,
+        fontSize: 14,
         color: colors.text,
+        marginTop: 4,
     },
-    });
-    
+    button: {
+        backgroundColor: colors.primary,
+        paddingVertical: 6,
+        paddingHorizontal: 12,
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 5, // Space between buttons
+    },
+    buttonText: {
+        color: colors.background,
+        fontSize: 14,
+        fontWeight: 'bold',
+    },
+    modalView: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 10,
+        alignItems: 'center',
+        maxHeight: screenHeight * 0.8, // Modal height to 80% of screen height
+        width: '80%',
+    }
+});
