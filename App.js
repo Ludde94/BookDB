@@ -9,7 +9,7 @@ import colors from './src/themes'; // Ensure this path matches your project stru
 export default function App() {
   return (
     <SafeAreaProvider>
-      <StatusBar style="light" backgroundColor={colors.primary} />
+      <StatusBar style="dark" backgroundColor={colors.background} />
       <View style={styles.container}>
         <Navigation />
       </View>
