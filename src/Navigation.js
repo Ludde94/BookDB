@@ -14,7 +14,7 @@ const AddBookStack = createStackNavigator();
 function AddBookStackScreen() {
   return (
     <AddBookStack.Navigator>
-      <AddBookStack.Screen name="AddBook" component={AddBookScreen} options={{ title: 'Add Book' }} />
+      <AddBookStack.Screen name="AddBook" component={AddBookScreen} options={{ title: 'Search' }} />
       <AddBookStack.Screen name="BookDetails" component={BookDetailScreen} options={{ title: 'Book Details' }} />
     </AddBookStack.Navigator>
   );
@@ -29,8 +29,8 @@ export default function Navigation() {
           tabBarInactiveTintColor: colors.text,
           tabBarStyle: { backgroundColor: colors.background },
         }}>
-        <Tab.Screen name="Read Books" component={ReadBooksScreen} />
-        <Tab.Screen name="Add Book" component={AddBookStackScreen} options={{ headerShown: false }} />
+        <Tab.Screen name="My Library" component={ReadBooksScreen} />
+        <Tab.Screen name="Search" component={AddBookStackScreen} options={{ headerShown: false }} />
       </Tab.Navigator>
     </NavigationContainer>
   );
