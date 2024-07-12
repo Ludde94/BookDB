@@ -7,7 +7,7 @@ export default function AddBookScreen() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const books = await searchBooks('Harry Potter'); // Replace 'Harry Potter' with any search string
+      const books = await searchBooks('9781781105641'); // Replace 'Harry Potter' with any search string
       console.log(books);
     };
 
