@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
+import styles from './ScannerStyles'
 
 export default function Scanner({ navigation }) {
   const [facing, setFacing] = useState('back'); // Controls which camera (front or back) is active
@@ -48,27 +49,3 @@ export default function Scanner({ navigation }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  camera: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  button: {
-    width: 150,
-    backgroundColor: 'blue',
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 20,
-  },
-  text: {
-    fontSize: 18,
-    color: 'white',
-    textAlign: 'center',
-  },
-});

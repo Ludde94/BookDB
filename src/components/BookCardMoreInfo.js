@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import styles from './styles/BookCardStyles';
 
-function BookCard({ book, navigation }) {  // Confirm navigation is received here
+function BookCardMoreInfo({ book, navigation }) {  // Confirm navigation is received here
     // Function to format date to only show the year
     const formatYear = (dateString) => {
         if (!dateString) return ''; // Handle empty or undefined date strings
@@ -30,4 +30,4 @@ function BookCard({ book, navigation }) {  // Confirm navigation is received her
     );
 }
 
-export default BookCard;
+export default BookCardMoreInfo;

@@ -5,7 +5,7 @@ import colors from '../themes'; // Ensure the path is correct
 const screenHeight = Dimensions.get('window').height;
 
 
-const BooksCard = ({ book }) => {
+const BookCardEdit = ({ book }) => {
   return (
     <View style={styles.cardContainer}>
             <Image source={{ uri: book.image }} style={styles.image} resizeMode="contain" />
@@ -15,7 +15,7 @@ const BooksCard = ({ book }) => {
                 <Text style={styles.details} numberOfLines={1} ellipsizeMode='tail'>Year: {book.publishedYear}</Text>
                 <Text style={styles.details} numberOfLines={1} ellipsizeMode='tail'>Publisher: {book.publisher}</Text>
                 <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('BookDetails', { book })}>
-                    <Text style={styles.buttonText}>More Info</Text>
+                    <Text style={styles.buttonText}>Edit</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -81,4 +81,4 @@ const styles = StyleSheet.create({
       },
 });
 
-export default BooksCard;
+export default BookCardEdit;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, Button } from 'react-native';
 import globalStyles from '../../styles/globalStyles';
-import BookCard from '../../components/BookCard';
+import BookCardMoreInfo from '../../components/BookCardMoreInfo';
 import SearchBar from '../../components/SearchBar';
 import searchBooks from '../../api/ApiCalls';
 
@@ -54,7 +54,7 @@ export default function AddBookScreen({ navigation, route }) {
       <SearchBar onSearch={handleSearch} onScan={() => navigation.navigate('Scanner')} />
       <FlatList
         data={books}
-        renderItem={({ item }) => <BookCard book={item} navigation={navigation} />}
+        renderItem={({ item }) => <BookCardMoreInfo book={item} navigation={navigation} />}
         keyExtractor={(item, index) => 'key' + index}
         ListFooterComponent={() => (
           <Button title="Load More" onPress={handleLoadMore} />
