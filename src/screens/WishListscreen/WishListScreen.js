@@ -5,7 +5,7 @@ import colors from '../../themes'; // Confirm the path is correct
 import { fetchBooksFromWantToRead } from '../../db/Storage'; // Adjust the import path to where your storage file is located
 import ReadBooksCard from '../ReadBooksScreen/components/ReadBooksCard'; // Adjust the import path to where your ReadBooksCard file is located
 
-export default function ReadBooksScreen() {
+export default function WishlistScreen() {
   const [books, setBooks] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 

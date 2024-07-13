@@ -5,9 +5,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import ReadBooksScreen from './screens/ReadBooksScreen/ReadBooksScreen.js';
 import AddBookScreen from './screens/AddBookScreen/AddBookScreen.js';
 import BookDetailScreen from './screens/BookDetailScreen/BookDetailScreen.js';
+import WishlistScreen from './screens/WishlistScreen/WishListScreen.js';
 import colors from './themes';
 import Scanner from './screens/ScannerScreen/ScannerScreen.js'; // Ensure the path is correct
-import WishListScreen from './screens/WishListscreen/WishListScreen.js'
 
 const Tab = createBottomTabNavigator();
 const AddBookStack = createStackNavigator();
@@ -36,7 +36,7 @@ export default function Navigation() {
           tabBarStyle: { backgroundColor: colors.background },
         }}>
         <Tab.Screen name="My Library" component={ReadBooksScreen} />
-        <Tab.Screen name="Wishlist" component={WishListScreen} />
+        <Tab.Screen name="Wishlist" component={WishlistScreen} />
         <Tab.Screen name="Search" component={AddBookStackScreen} options={{ headerShown: false }} />
       </Tab.Navigator>
     </NavigationContainer>
