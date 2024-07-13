@@ -1,40 +1,48 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
-import { BarCodeScanner } from 'expo-barcode-scanner';
+import React, { useState } from 'react';
+import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { CameraView, useCameraPermissions } from 'expo-camera';
 
 export default function Scanner({ navigation }) {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [scanned, setScanned] = useState(false);
+  const [facing, setFacing] = useState('back'); // Controls which camera (front or back) is active
+  const [permission, requestPermission] = useCameraPermissions(); // Manages camera permissions
 
-  useEffect(() => {
-    const getBarCodeScannerPermissions = async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
-    };
+  if (!permission) {
+    // Camera permissions are still loading
+    return <View style={styles.container}><Text>Loading permissions...</Text></View>;
+  }
 
-    getBarCodeScannerPermissions();
-  }, []);
+  if (!permission.granted) {
+    // Camera permissions are not granted yet
+    return (
+      <View style={styles.container}>
+        <Text style={{ textAlign: 'center' }}>We need your permission to show the camera</Text>
+        <Button onPress={requestPermission} title="Grant Permission" />
+      </View>
+    );
+  }
 
   const handleBarCodeScanned = ({ type, data }) => {
-    setScanned(true);
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
     navigation.navigate('AddBook', { scannedData: data });
   };
 
-  if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>;
-  }
-  if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
+  function toggleCameraFacing() {
+    setFacing(current => (current === 'back' ? 'front' : 'back'));
   }
 
   return (
     <View style={styles.container}>
-      <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={StyleSheet.absoluteFillObject}
-      />
-      {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
+      <CameraView
+  style={styles.camera}
+  facing={facing}
+  onBarcodeScanned={handleBarCodeScanned}
+  barcodeScannerSettings={{
+    barcodeTypes: ['ean13'], // Specifically for books which generally use EAN-13
+  }}>
+  <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
+    <Text style={styles.text}>Flip Camera</Text>
+  </TouchableOpacity>
+</CameraView>
     </View>
   );
 }
@@ -42,7 +50,23 @@ export default function Scanner({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
     justifyContent: 'center',
+  },
+  camera: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  button: {
+    width: 150,
+    backgroundColor: 'blue',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 20,
+  },
+  text: {
+    fontSize: 18,
+    color: 'white',
+    textAlign: 'center',
   },
 });
