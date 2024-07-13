@@ -28,10 +28,6 @@ export default function Scanner({ navigation }) {
     navigation.navigate('AddBook', { scannedData: data });
   };
 
-  function toggleCameraFacing() {
-    setFacing(current => (current === 'back' ? 'front' : 'back'));
-  }
-
   function enableScanning() {
     setIsScanning(true); // Re-enable scanning when needed
   }
@@ -45,9 +41,6 @@ export default function Scanner({ navigation }) {
         barcodeScannerSettings={{
           barcodeTypes: ['ean13'], // Specifically for books which generally use EAN-13
         }}>
-        <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-          <Text style={styles.text}>Flip Camera</Text>
-        </TouchableOpacity>
         {!isScanning && (
           <Button title="Scan Again" onPress={enableScanning} /> // Button to re-enable scanning
         )}

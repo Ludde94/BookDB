@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, Button } from 'react-native';
 import globalStyles from '../../styles/globalStyles';
-import BookCard from '../../components/BookCard/BookCard';
-import SearchBar from '../../components/SearchBar/SearchBar';
+import BookCard from '../../components/BookCard';
+import SearchBar from '../../components/SearchBar';
 import searchBooks from '../../api/ApiCalls';
 
 export default function AddBookScreen({ navigation, route }) {

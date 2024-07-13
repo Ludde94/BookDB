@@ -6,7 +6,7 @@ import ReadBooksScreen from './screens/ReadBooksScreen/ReadBooksScreen';
 import AddBookScreen from './screens/AddBookScreen/AddBookScreen';
 import BookDetailScreen from './screens/BookDetailScreen/BookDetailScreen';
 import colors from './themes';
-import Scanner from './screens/Scanner/Scanner.js'; // Ensure the path is correct
+import Scanner from './screens/ScannerScreen/ScannerScreen.js'; // Ensure the path is correct
 
 const Tab = createBottomTabNavigator();
 const AddBookStack = createStackNavigator();

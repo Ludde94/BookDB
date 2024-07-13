@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import styles from './BookCardStyles';
+import styles from './styles/BookCardStyles';
 
 function BookCard({ book, navigation }) {  // Confirm navigation is received here
     // Function to format date to only show the year
