@@ -1,9 +1,24 @@
-import React from 'react';
-import { View, TextInput, StyleSheet, Button } from 'react-native';
+import React, { useState } from 'react';
+import { View, TextInput, TouchableOpacity, Text } from 'react-native';
 import styles from './SearchBarStyles';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import colors from '../../themes';
 
-export default function SearchBar({ onSearch }) {
-  const [searchQuery, setSearchQuery] = React.useState('');
+const ScanButton = ({ onPress }) => (
+  <TouchableOpacity onPress={onPress} style={styles.scanButton}>
+    <MaterialCommunityIcons name="barcode-scan" size={25} color={colors.text} />
+  </TouchableOpacity>
+);
+
+const SearchButton = ({ onPress }) => (
+  <TouchableOpacity onPress={onPress} style={styles.scanButton}>
+    <Ionicons name="search" size={25} color={colors.primary} />
+  </TouchableOpacity>
+);
+
+export default function SearchBar({ onSearch, onScan }) {
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = () => {
     onSearch(searchQuery.trim());
@@ -18,7 +33,10 @@ export default function SearchBar({ onSearch }) {
         value={searchQuery}
         onSubmitEditing={handleSearch}
       />
-      <Button title="Search" onPress={handleSearch} />
+      
+      <SearchButton onPress={handleSearch} />
+      
+      <ScanButton onPress={onScan} />
     </View>
   );
 }

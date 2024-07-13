@@ -51,8 +51,8 @@ export default function AddBookScreen({ navigation, route }) {
 
   return (
     <View style={globalStyles.container}>
-      <SearchBar onSearch={handleSearch} />
-      <Button title="Scan Book Barcode" onPress={() => navigation.navigate('Scanner')} />
+      <SearchBar onSearch={handleSearch} onScan={() => navigation.navigate('Scanner')} />
+      
       <FlatList
         data={books}
         renderItem={({ item }) => <BookCard book={item} navigation={navigation} />}
