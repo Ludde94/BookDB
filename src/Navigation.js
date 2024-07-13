@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import ReadBooksScreen from './screens/ReadBooksScreen/ReadBooksScreen.js';
 import AddBookScreen from './screens/AddBookScreen/AddBookScreen.js';
 import BookDetailScreen from './screens/BookDetailScreen/BookDetailScreen.js';
-import WishlistScreen from './screens/WishlistScreen/WishListScreen.js';
+import WishlistScreen from './screens/WishlistScreen/WishlistScreen.js';
 import colors from './themes';
 import Scanner from './screens/ScannerScreen/ScannerScreen.js';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -39,6 +39,7 @@ export default function Navigation() {
               iconName = 'library-books'; // choose the icon based on the tab
             } else if (route.name === 'Wishlist') {
               iconName = 'favorite-border';
+              color = focused ? 'red' : 'black'; // Change to red when focused, gray when not
             } else if (route.name === 'Search') {
               iconName = 'search';
             }
