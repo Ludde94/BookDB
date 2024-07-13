@@ -7,7 +7,7 @@ const searchBooks = async (searchQuery, startIndex = 0) => {
     q: isISBN ? `isbn:${searchQuery}` : searchQuery,
     startIndex,
     maxResults: 10,
-    fields: 'items(volumeInfo/title,volumeInfo/publishedDate,volumeInfo/authors,volumeInfo/publisher,volumeInfo/description,volumeInfo/industryIdentifiers,volumeInfo/categories,volumeInfo/imageLinks)'
+    fields: 'items(volumeInfo/title,volumeInfo/publishedDate,volumeInfo/authors,volumeInfo/publisher,volumeInfo/description,volumeInfo/industryIdentifiers,volumeInfo/categories,volumeInfo/imageLinks,volumeInfo/pageCount,volumeInfo/averageRating,volumeInfo/language)'
   });
 
   try {
@@ -29,7 +29,10 @@ const searchBooks = async (searchQuery, startIndex = 0) => {
           description: volumeInfo.description,
           image: volumeInfo.imageLinks ? volumeInfo.imageLinks.thumbnail : null,
           genre: volumeInfo.categories ? volumeInfo.categories.join(', ') : 'Unknown Genre',
-          isbn: volumeInfo.industryIdentifiers ? volumeInfo.industryIdentifiers.map(identifier => `${identifier.type}: ${identifier.identifier}`).join(', ') : 'No ISBN'
+          isbn: volumeInfo.industryIdentifiers ? volumeInfo.industryIdentifiers.map(identifier => `${identifier.type}: ${identifier.identifier}`).join(', ') : 'No ISBN',
+          pageCount: volumeInfo.pageCount || 'N/A',
+          averageRating: volumeInfo.averageRating || 'N/A',
+          language: volumeInfo.language || 'N/A'
         };
       });
     } else {
@@ -45,7 +48,11 @@ const searchBooks = async (searchQuery, startIndex = 0) => {
         id: `${book.title}_${new Date().getTime()}`,
         title: book.title,
         publishedYear: book.date,
-        authors: book.creator
+        authors: book.creator,
+        // Assuming Libris API response might not include pageCount, averageRating, or language.
+        pageCount: 'N/A',
+        averageRating: 'N/A',
+        language: 'N/A'
       }));
     }
   } catch (error) {
@@ -53,6 +60,5 @@ const searchBooks = async (searchQuery, startIndex = 0) => {
     return [];
   }
 };
-
 
 export default searchBooks;
