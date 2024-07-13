@@ -1,18 +1,17 @@
-// src/Navigation.js
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import ReadBooksScreen from './screens/ReadBooksScreen/ReadBooksScreen.js';
-import AddBookScreen from './screens/AddBookScreen/AddBookScreen.js';
-import BookDetailScreen from './screens/BookDetailScreen/BookDetailScreen.js';
+import ReadBooksScreen from './screens/ReadBooksScreen/ReadBooksScreen';
+import AddBookScreen from './screens/AddBookScreen/AddBookScreen';
+import BookDetailScreen from './screens/BookDetailScreen/BookDetailScreen';
 import colors from './themes';
+import Scanner from './screens/Scanner/Scanner.js'; // Ensure the path is correct
 
 const Tab = createBottomTabNavigator();
 const AddBookStack = createStackNavigator();
 
 function AddBookStackScreen() {
-  
   return (
     <AddBookStack.Navigator screenOptions={{
       headerStyle: {
@@ -21,6 +20,7 @@ function AddBookStackScreen() {
     }}>
       <AddBookStack.Screen name="AddBook" component={AddBookScreen} options={{ title: 'Search' }} />
       <AddBookStack.Screen name="BookDetails" component={BookDetailScreen} options={{ title: 'Book Details' }} />
+      <AddBookStack.Screen name="Scanner" component={Scanner} options={{ title: 'Scan Book Barcode' }} />
     </AddBookStack.Navigator>
   );
 }

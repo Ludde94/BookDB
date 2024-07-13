@@ -5,7 +5,7 @@ import BookCard from '../../components/BookCard/BookCard';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import searchBooks from '../../api/ApiCalls';
 
-export default function AddBookScreen({ navigation }) {  // Ensure navigation is received here
+export default function AddBookScreen({ navigation }) {
   const [books, setBooks] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState('The great');
@@ -35,12 +35,20 @@ export default function AddBookScreen({ navigation }) {  // Ensure navigation is
     setStartIndex(newIndex);
   };
 
+  const handleScanResult = (data) => {
+    // Use the scanned data to search for books or perform any other action
+    setSearchQuery(data);
+    fetchData(data, 0);
+    setStartIndex(0);
+  };
+
   return (
     <View style={globalStyles.container}>
       <SearchBar onSearch={handleSearch} />
+      <Button title="Scan Book Barcode" onPress={() => navigation.navigate('Scanner', { onScanResult: handleScanResult })} />
       <FlatList
         data={books}
-        renderItem={({ item }) => <BookCard book={item} navigation={navigation} />}  // Pass navigation to BookCard
+        renderItem={({ item }) => <BookCard book={item} navigation={navigation} />}
         keyExtractor={(item, index) => 'key' + index}
         ListFooterComponent={() => (
           <Button title="Load More" onPress={handleLoadMore} />
