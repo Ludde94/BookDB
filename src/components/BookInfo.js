@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import styles from '../../../components/styles/BookDetailInfoStyles';
+import styles from './styles/BookDetailInfoStyles';
 
 const BookDetailInfo = ({ book }) => (
     <>
