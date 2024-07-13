@@ -37,11 +37,13 @@ export default function Navigation() {
             let iconName;
             if (route.name === 'My Library') {
               iconName = 'library-books';
+              color = focused ? 'blue' : 'black';
             } else if (route.name === 'Wishlist') {
               iconName = 'favorite-border';
               color = focused ? 'red' : 'black';
             } else if (route.name === 'Search') {
               iconName = 'search';
+              color = focused ? 'orange' : 'black';
             }
             return <MaterialIcons name={iconName} size={size} color={color} />;
           },
