@@ -36,10 +36,10 @@ export default function Navigation() {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             if (route.name === 'My Library') {
-              iconName = 'library-books'; // choose the icon based on the tab
+              iconName = 'library-books';
             } else if (route.name === 'Wishlist') {
               iconName = 'favorite-border';
-              color = focused ? 'red' : 'black'; // Change to red when focused, gray when not
+              color = focused ? 'red' : 'black';
             } else if (route.name === 'Search') {
               iconName = 'search';
             }

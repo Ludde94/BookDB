@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import styles from '../../../components/styles/BookDetailButtonsStyles';
-import { saveBookToLibrary, saveBookToWantToRead } from '../../../db/Storage'; // Adjust the import path as necessary
+import { saveBookToLibrary, saveBookToWantToRead } from '../../../db/Storage';
 
 const BookDetailButtons = ({ book }) => {
     const addToCollection = () => {
