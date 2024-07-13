@@ -8,7 +8,7 @@ import searchBooks from '../../api/ApiCalls';
 export default function AddBookScreen({ navigation, route }) {
   const [books, setBooks] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
-  const [searchQuery, setSearchQuery] = useState('levande');
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Listening to changes in route.params.scannedData
   useEffect(() => {
@@ -56,10 +56,10 @@ export default function AddBookScreen({ navigation, route }) {
         data={books}
         renderItem={({ item }) => <BookCardMoreInfo book={item} navigation={navigation} />}
         keyExtractor={(item, index) => 'key' + index}
-        ListFooterComponent={() => (
-          <Button title="Load More" onPress={handleLoadMore} />
-        )}
+        onEndReached={handleLoadMore}
+        onEndReachedThreshold={0.5}
       />
     </View>
   );
 }
+
