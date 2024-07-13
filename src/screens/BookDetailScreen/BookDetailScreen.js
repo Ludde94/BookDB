@@ -13,7 +13,7 @@ function BookDetailScreen({ route }) {
             <ScrollView style={styles.container}>
                 <BookDetailHeader book={book} />
                 <BookDetailInfo book={book} />
-                <BookDetailButtons />
+                <BookDetailButtons book={book} />
             </ScrollView>
         </SafeAreaView>
     );
