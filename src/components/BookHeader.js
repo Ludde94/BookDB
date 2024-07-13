@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Image, Text } from 'react-native';
-import styles from '../../../components/styles/BookDetailHeaderStyles';
+import styles from './styles/BookDetailHeaderStyles';
 
 const BookDetailHeader = ({ book }) => (
     <>

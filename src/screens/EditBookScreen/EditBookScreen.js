@@ -1,11 +1,11 @@
 import React from 'react';
 import { SafeAreaView, ScrollView } from 'react-native';
-import styles from './BookDetailStyles'; // Confirm the path is correct
-import BookDetailHeader from '../../components/BookHeader';
-import BookDetailInfo from '../../components/BookInfo';
+import styles from './EditBookStyles';
+import BookDetailHeader from './components/BookDetailHeader';
+import BookDetailInfo from './components/BookDetailInfo';
 import BookDetailButtons from './components/BookDetailButtons';
 
-function BookDetailScreen({ route }) {
+function EditBookScreen({ route }) {
     const { book } = route.params;
 
     return (
@@ -19,4 +19,4 @@ function BookDetailScreen({ route }) {
     );
 }
 
-export default BookDetailScreen;
+export default EditBookScreen;
