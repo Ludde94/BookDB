@@ -43,6 +43,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'flex-start',
     marginTop: 10,
+    
   },
   buttonText: {
     color: 'white',

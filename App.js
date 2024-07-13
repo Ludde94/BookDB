@@ -3,8 +3,8 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import Navigation from './src/Navigation'; // Ensure this path matches your project structure
-import colors from './src/themes'; // Ensure this path matches your project structure
+import Navigation from './src/Navigation';
+import colors from './src/themes';
 
 export default function App() {
   return (

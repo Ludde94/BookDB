@@ -18,7 +18,7 @@ const searchBooks = async (searchQuery, startIndex = 0) => {
         const volumeInfo = book.volumeInfo;
         const industryIdentifiers = volumeInfo.industryIdentifiers;
         let id = industryIdentifiers ? industryIdentifiers.find(id => id.type === 'ISBN_13' || id.type === 'ISBN_10') : null;
-        id = id ? id.identifier : `${volumeInfo.title}_${new Date().getTime()}`; // Use ISBN if available, else use title + timestamp
+        id = id ? id.identifier : `${volumeInfo.title}_${new Date().getTime()}`;
 
         return {
           id,
@@ -42,10 +42,10 @@ const searchBooks = async (searchQuery, startIndex = 0) => {
       response = await fetch(`${LIBRIS_BASE_URL}?${librisParams}`);
       data = await response.json();
       return data.xsearch.list.map(book => ({
-        id: `${book.title}_${new Date().getTime()}`, // Generate a pseudo-unique ID based on title and current time
+        id: `${book.title}_${new Date().getTime()}`,
         title: book.title,
         publishedYear: book.date,
-        authors: book.creator // Assuming 'creator' holds the author's data
+        authors: book.creator
       }));
     }
   } catch (error) {
