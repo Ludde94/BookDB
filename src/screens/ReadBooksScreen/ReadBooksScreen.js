@@ -1,24 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react';
+import { View, Text, StyleSheet, ScrollView, RefreshControl } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import colors from '../../themes'; // Confirm the path is correct
 import { fetchBooksFromLibrary } from '../../db/Storage'; // Adjust the import path to where your storage file is located
 
 export default function ReadBooksScreen() {
   const [books, setBooks] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
-  useEffect(() => {
-    const loadBooks = async () => {
-      const fetchedBooks = await fetchBooksFromLibrary();
-      setBooks(fetchedBooks);
-    };
+  const loadBooks = async () => {
+    const fetchedBooks = await fetchBooksFromLibrary();
+    setBooks(fetchedBooks);
+  };
 
-    loadBooks();
+  useFocusEffect(
+    useCallback(() => {
+      loadBooks();
+    }, [])
+  );
+
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await loadBooks();
+    setRefreshing(false);
   }, []);
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>List of Read Books</Text>
-      <ScrollView style={styles.bookList}>
+      <ScrollView
+        style={styles.bookList}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         {books.map((book, index) => (
           <Text key={index} style={styles.bookText}>
             {book.title} by {book.author}
