@@ -5,7 +5,7 @@ const searchBooks = async (searchQuery, startIndex = 0) => {
   const isISBN = searchQuery.match(/^(97(8|9))?\d{9}(\d|X)?$/);
   const googleParams = new URLSearchParams({
     q: isISBN ? `isbn:${searchQuery}` : searchQuery,
-    startIndex,  // Add this line to control pagination
+    startIndex,
     maxResults: 10,
     fields: 'items(volumeInfo/title,volumeInfo/publishedDate,volumeInfo/authors,volumeInfo/publisher,volumeInfo/description,volumeInfo/industryIdentifiers,volumeInfo/categories,volumeInfo/imageLinks)'
   });
@@ -16,7 +16,12 @@ const searchBooks = async (searchQuery, startIndex = 0) => {
     if (data.items && data.items.length > 0) {
       return data.items.map(book => {
         const volumeInfo = book.volumeInfo;
+        const industryIdentifiers = volumeInfo.industryIdentifiers;
+        let id = industryIdentifiers ? industryIdentifiers.find(id => id.type === 'ISBN_13' || id.type === 'ISBN_10') : null;
+        id = id ? id.identifier : `${volumeInfo.title}_${new Date().getTime()}`; // Use ISBN if available, else use title + timestamp
+
         return {
+          id,
           title: volumeInfo.title,
           publishedYear: volumeInfo.publishedDate,
           authors: volumeInfo.authors ? volumeInfo.authors.join(', ') : 'Unknown Author',
@@ -37,6 +42,7 @@ const searchBooks = async (searchQuery, startIndex = 0) => {
       response = await fetch(`${LIBRIS_BASE_URL}?${librisParams}`);
       data = await response.json();
       return data.xsearch.list.map(book => ({
+        id: `${book.title}_${new Date().getTime()}`, // Generate a pseudo-unique ID based on title and current time
         title: book.title,
         publishedYear: book.date,
         authors: book.creator // Assuming 'creator' holds the author's data
@@ -47,5 +53,6 @@ const searchBooks = async (searchQuery, startIndex = 0) => {
     return [];
   }
 };
+
 
 export default searchBooks;
