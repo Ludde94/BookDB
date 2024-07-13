@@ -5,14 +5,25 @@ import BookCard from '../../components/BookCard/BookCard';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import searchBooks from '../../api/ApiCalls';
 
-export default function AddBookScreen({ navigation }) {
+export default function AddBookScreen({ navigation, route }) {
   const [books, setBooks] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
-  const [searchQuery, setSearchQuery] = useState('The great');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Listening to changes in route.params.scannedData
+  useEffect(() => {
+    if (route.params?.scannedData) {
+      const data = route.params.scannedData;
+      handleScanResult(data);
+      navigation.setParams({ scannedData: null });  // Resetting scannedData to null to avoid re-triggering on back navigation
+    }
+  }, [route.params?.scannedData]);
 
   useEffect(() => {
-    fetchData(searchQuery, 0);
-  }, []);
+    if (searchQuery) {
+      fetchData(searchQuery, 0);
+    }
+  }, [searchQuery]);
 
   const fetchData = async (query, startIndex) => {
     const result = await searchBooks(query, startIndex);
@@ -25,7 +36,6 @@ export default function AddBookScreen({ navigation }) {
 
   const handleSearch = (query) => {
     setSearchQuery(query);
-    fetchData(query, 0);
     setStartIndex(0);
   };
 
@@ -36,16 +46,13 @@ export default function AddBookScreen({ navigation }) {
   };
 
   const handleScanResult = (data) => {
-    // Use the scanned data to search for books or perform any other action
     setSearchQuery(data);
-    fetchData(data, 0);
-    setStartIndex(0);
   };
 
   return (
     <View style={globalStyles.container}>
       <SearchBar onSearch={handleSearch} />
-      <Button title="Scan Book Barcode" onPress={() => navigation.navigate('Scanner', { onScanResult: handleScanResult })} />
+      <Button title="Scan Book Barcode" onPress={() => navigation.navigate('Scanner')} />
       <FlatList
         data={books}
         renderItem={({ item }) => <BookCard book={item} navigation={navigation} />}

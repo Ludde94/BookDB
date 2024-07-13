@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
-export default function Scanner({ navigation, route }) {
+export default function Scanner({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const { onScanResult } = route.params;  // Retrieve the callback function from route params
 
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
@@ -19,10 +18,7 @@ export default function Scanner({ navigation, route }) {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-    if (onScanResult) {
-      onScanResult(data);  // Pass the scanned data back to the AddBookScreen
-    }
-    navigation.goBack();  // Navigate back to the AddBookScreen
+    navigation.navigate('AddBook', { scannedData: data });
   };
 
   if (hasPermission === null) {
