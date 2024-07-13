@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
-import colors from '../../../themes'; // Ensure the path is correct
+import colors from '../themes'; // Ensure the path is correct
 
 const screenHeight = Dimensions.get('window').height;
 
 
-const ReadBooksCard = ({ book }) => {
+const BooksCard = ({ book }) => {
   return (
     <View style={styles.cardContainer}>
             <Image source={{ uri: book.image }} style={styles.image} resizeMode="contain" />
@@ -81,4 +81,4 @@ const styles = StyleSheet.create({
       },
 });
 
-export default ReadBooksCard;
+export default BooksCard;

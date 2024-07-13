@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, RefreshControl } from 'react-native
 import { useFocusEffect } from '@react-navigation/native';
 import colors from '../../themes'; // Confirm the path is correct
 import { fetchBooksFromWantToRead } from '../../db/Storage'; // Adjust the import path to where your storage file is located
-import ReadBooksCard from '../ReadBooksScreen/components/ReadBooksCard'; // Adjust the import path to where your ReadBooksCard file is located
+import BooksCard from '../../components/ReadBooksCard'; // Adjust the import path to where your ReadBooksCard file is located
 
 export default function WishlistScreen() {
   const [books, setBooks] = useState([]);
@@ -35,7 +35,7 @@ export default function WishlistScreen() {
         }
       >
         {books.map((book, index) => (
-          <ReadBooksCard key={index} book={book} />
+          <BooksCard key={index} book={book} />
         ))}
       </ScrollView>
     </View>
