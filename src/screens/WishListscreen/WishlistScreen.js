@@ -5,7 +5,7 @@ import { fetchBooksFromWantToRead } from '../../db/Storage';
 import BooksCardEdit from '../../components/BookCardEdit'; 
 import styles from './WishlistStyles';
 
-export default function WishlistScreen() {
+export default function WishlistScreen({navigation, route }) {
   const [books, setBooks] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -35,8 +35,9 @@ export default function WishlistScreen() {
         }
       >
         {books.map((book, index) => (
-          <BooksCardEdit key={index} book={book} />
-        ))}
+  <BooksCardEdit key={index} book={book} navigation={navigation} />
+))}
+
       </ScrollView>
     </View>
   );

@@ -5,20 +5,20 @@ import colors from '../themes'; // Ensure the path is correct
 const screenHeight = Dimensions.get('window').height;
 
 
-const BookCardEdit = ({ book }) => {
+const BooksCardEdit = ({ book, navigation }) => {
   return (
     <View style={styles.cardContainer}>
-            <Image source={{ uri: book.image }} style={styles.image} resizeMode="contain" />
-            <View style={styles.infoContainer}>
-                <Text style={styles.title} numberOfLines={1} ellipsizeMode='tail'>{book.title}</Text>
-                <Text style={styles.details} numberOfLines={1} ellipsizeMode='tail'>Author: {book.authors}</Text>
-                <Text style={styles.details} numberOfLines={1} ellipsizeMode='tail'>Year: {book.publishedYear}</Text>
-                <Text style={styles.details} numberOfLines={1} ellipsizeMode='tail'>Publisher: {book.publisher}</Text>
-                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('BookDetails', { book })}>
-                    <Text style={styles.buttonText}>Edit</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
+      <Image source={{ uri: book.image }} style={styles.image} resizeMode="contain" />
+      <View style={styles.infoContainer}>
+        <Text style={styles.title} numberOfLines={1} ellipsizeMode='tail'>{book.title}</Text>
+        <Text style={styles.details} numberOfLines={1} ellipsizeMode='tail'>Author: {book.authors}</Text>
+        <Text style={styles.details} numberOfLines={1} ellipsizeMode='tail'>Year: {book.publishedYear}</Text>
+        <Text style={styles.details} numberOfLines={1} ellipsizeMode='tail'>Publisher: {book.publisher}</Text>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EditBook', { book })}>
+          <Text style={styles.buttonText}>Edit</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
 
@@ -81,4 +81,4 @@ const styles = StyleSheet.create({
       },
 });
 
-export default BookCardEdit;
+export default BooksCardEdit;
