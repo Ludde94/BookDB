@@ -2,9 +2,9 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import ReadBooksScreen from './screens/ReadBooksScreen/ReadBooksScreen';
-import AddBookScreen from './screens/AddBookScreen/AddBookScreen';
-import BookDetailScreen from './screens/BookDetailScreen/BookDetailScreen';
+import ReadBooksScreen from './screens/ReadBooksScreen/ReadBooksScreen.js';
+import AddBookScreen from './screens/AddBookScreen/AddBookScreen.js';
+import BookDetailScreen from './screens/BookDetailScreen/BookDetailScreen.js';
 import colors from './themes';
 import Scanner from './screens/ScannerScreen/ScannerScreen.js'; // Ensure the path is correct
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
-import styles from './styles/BookDetailButtonsStyles';
+import styles from '../../../components/styles/BookDetailButtonsStyles';
 
 const BookDetailButtons = () => {
     const addToCollection = () => {
