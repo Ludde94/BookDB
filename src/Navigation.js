@@ -1,6 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import ReadBooksScreen from './screens/ReadBooksScreen/ReadBooksScreen.js';
 import AddBookScreen from './screens/AddBookScreen/AddBookScreen.js';
@@ -9,10 +10,13 @@ import WishlistScreen from './screens/WishlistScreen/WishlistScreen.js';
 import colors from './themes';
 import Scanner from './screens/ScannerScreen/ScannerScreen.js';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import EditBookScreen from './screens/EditBookScreen/EditBookScreen.js';
 
 
 const Tab = createBottomTabNavigator();
+
 const AddBookStack = createStackNavigator();
+const WishlistStack = createStackNavigator();
 
 function AddBookStackScreen() {
   return (
@@ -21,15 +25,32 @@ function AddBookStackScreen() {
         backgroundColor: colors.background
       }
     }}>
-      <AddBookStack.Screen name="AddBook" component={AddBookScreen} options={{ title: 'Search' }} />
+      <AddBookStack.Screen 
+        name="AddBook" 
+        component={AddBookScreen} 
+        options={{ 
+          title: 'Search',
+          headerShown: false // Hide the header for the Search page
+        }} 
+      />
       <AddBookStack.Screen name="BookDetails" component={BookDetailScreen} options={{ title: 'Book Details' }} />
       <AddBookStack.Screen name="Scanner" component={Scanner} options={{ title: 'Scan Book Barcode' }} />
     </AddBookStack.Navigator>
   );
 }
 
+function WishlistStackScreen() {
+  return (
+    <WishlistStack.Navigator>
+      <WishlistStack.Screen name="Wishlist" component={WishlistScreen} options={{ title: 'Wishlist' }} />
+      <WishlistStack.Screen name="EditBook" component={EditBookScreen} options={{ title: 'Edit Book' }} />
+    </WishlistStack.Navigator>
+  );
+}
+
 export default function Navigation() {
   return (
+    <SafeAreaView style={styles.safeArea}>
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -51,9 +72,18 @@ export default function Navigation() {
         })}
       >
         <Tab.Screen name="My Library" component={ReadBooksScreen} />
-        <Tab.Screen name="Wishlist" component={WishlistScreen} />
+        <Tab.Screen name="Wishlist" component={WishlistStackScreen} options={{ headerShown: false }} />
         <Tab.Screen name="Search" component={AddBookStackScreen} options={{ headerShown: false }} />
       </Tab.Navigator>
     </NavigationContainer>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: colors.background,
+    paddingTop: 0,
+  },
+});

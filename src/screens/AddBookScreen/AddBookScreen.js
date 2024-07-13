@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, Button } from 'react-native';
+import { View, FlatList, Button, SafeAreaView, StyleSheet } from 'react-native';
 import globalStyles from '../../styles/globalStyles';
+import colors from '../../themes';
 import BookCardMoreInfo from '../../components/BookCardMoreInfo';
 import SearchBar from '../../components/SearchBar';
 import searchBooks from '../../api/ApiCalls';
@@ -50,7 +51,8 @@ export default function AddBookScreen({ navigation, route }) {
   };
 
   return (
-    <View style={globalStyles.container}>
+    <SafeAreaView style={styles.safeArea}>
+    <View>
       <SearchBar onSearch={handleSearch} onScan={() => navigation.navigate('Scanner')} />
       <FlatList
         data={books}
@@ -60,6 +62,14 @@ export default function AddBookScreen({ navigation, route }) {
         onEndReachedThreshold={0.5}
       />
     </View>
+    </SafeAreaView>
   );
 }
 
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: colors.background,
+    paddingTop: 25,
+  },
+});
