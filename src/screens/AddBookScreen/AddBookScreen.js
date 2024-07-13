@@ -8,7 +8,7 @@ import searchBooks from '../../api/ApiCalls';
 export default function AddBookScreen({ navigation, route }) {
   const [books, setBooks] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState('levande');
 
   // Listening to changes in route.params.scannedData
   useEffect(() => {
@@ -52,7 +52,6 @@ export default function AddBookScreen({ navigation, route }) {
   return (
     <View style={globalStyles.container}>
       <SearchBar onSearch={handleSearch} onScan={() => navigation.navigate('Scanner')} />
-      
       <FlatList
         data={books}
         renderItem={({ item }) => <BookCard book={item} navigation={navigation} />}
