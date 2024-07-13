@@ -5,6 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../themes';
 
+
 const ScanButton = ({ onPress }) => (
   <TouchableOpacity onPress={onPress} style={styles.scanButton}>
     <MaterialCommunityIcons name="barcode-scan" size={25} color={colors.text} />

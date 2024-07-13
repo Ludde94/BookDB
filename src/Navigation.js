@@ -7,7 +7,9 @@ import AddBookScreen from './screens/AddBookScreen/AddBookScreen.js';
 import BookDetailScreen from './screens/BookDetailScreen/BookDetailScreen.js';
 import WishlistScreen from './screens/WishlistScreen/WishListScreen.js';
 import colors from './themes';
-import Scanner from './screens/ScannerScreen/ScannerScreen.js'; // Ensure the path is correct
+import Scanner from './screens/ScannerScreen/ScannerScreen.js';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
 
 const Tab = createBottomTabNavigator();
 const AddBookStack = createStackNavigator();
@@ -30,11 +32,23 @@ export default function Navigation() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        screenOptions={{
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            if (route.name === 'My Library') {
+              iconName = 'library-books'; // choose the icon based on the tab
+            } else if (route.name === 'Wishlist') {
+              iconName = 'favorite-border';
+            } else if (route.name === 'Search') {
+              iconName = 'search';
+            }
+            return <MaterialIcons name={iconName} size={size} color={color} />;
+          },
           tabBarActiveTintColor: colors.primary,
           tabBarInactiveTintColor: colors.text,
           tabBarStyle: { backgroundColor: colors.background },
-        }}>
+        })}
+      >
         <Tab.Screen name="My Library" component={ReadBooksScreen} />
         <Tab.Screen name="Wishlist" component={WishlistScreen} />
         <Tab.Screen name="Search" component={AddBookStackScreen} options={{ headerShown: false }} />
