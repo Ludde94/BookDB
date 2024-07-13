@@ -2,7 +2,10 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import styles from './styles/BookCardStyles';
 
-function BookCardMoreInfo({ book, navigation }) {  // Confirm navigation is received here
+// Import the placeholder image
+import placeholderImage from '../../assets/ImageNotFound.jpg'; // Adjust the path as necessary
+
+function BookCardMoreInfo({ book, navigation }) {
     // Function to format date to only show the year
     const formatYear = (dateString) => {
         if (!dateString) return ''; // Handle empty or undefined date strings
@@ -16,12 +19,16 @@ function BookCardMoreInfo({ book, navigation }) {  // Confirm navigation is rece
 
     return (
         <View style={styles.cardContainer}>
-            <Image source={{ uri: book.image }} style={styles.image} resizeMode="contain" />
+            <Image 
+                source={book.image ? { uri: book.image } : placeholderImage} 
+                style={styles.image} 
+                resizeMode="contain" 
+            />
             <View style={styles.infoContainer}>
-                <Text style={styles.title} numberOfLines={1} ellipsizeMode='tail'>{book.title}</Text>
-                <Text style={styles.details} numberOfLines={1} ellipsizeMode='tail'>Author: {book.authors}</Text>
-                <Text style={styles.details} numberOfLines={1} ellipsizeMode='tail'>Year: {formatYear(book.publishedYear)}</Text>
-                <Text style={styles.details} numberOfLines={1} ellipsizeMode='tail'>Publisher: {book.publisher}</Text>
+                {book.title && <Text style={styles.title} numberOfLines={1} ellipsizeMode='tail'>{book.title}</Text>}
+                {book.authors && <Text style={styles.details} numberOfLines={1} ellipsizeMode='tail'>Author: {book.authors}</Text>}
+                {book.publishedYear && <Text style={styles.details} numberOfLines={1} ellipsizeMode='tail'>Year: {formatYear(book.publishedYear)}</Text>}
+                {book.publisher && <Text style={styles.details} numberOfLines={1} ellipsizeMode='tail'>Publisher: {book.publisher}</Text>}
                 <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('BookDetails', { book })}>
                     <Text style={styles.buttonText}>More Info</Text>
                 </TouchableOpacity>
