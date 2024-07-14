@@ -10,7 +10,7 @@ function BookDetailScreen({ route }) {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <ScrollView style={styles.container}>
+            <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
                 <BookDetailHeader book={book} />
                 <BookDetailInfo book={book} />
                 <BookDetailButtons book={book} />
