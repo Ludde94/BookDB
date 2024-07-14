@@ -1,22 +1,28 @@
+// BookInfoStyles.js
 import { StyleSheet } from 'react-native';
-import { themes } from '../../themes.js'
+import colors from '../../themes'; // Ensure this is the correct path
 
 const styles = StyleSheet.create({
     detail: {
-        fontSize: 16,
-        marginVertical: 2,
-        borderColor: '#96b1de',      
-        borderWidth: 1,           // Border width
-        padding: 10,              
-        borderRadius: 5, 
+        paddingVertical: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: colors.accent,
+        marginVertical: 5,
     },
     description: {
         fontSize: 16,
-        marginVertical: 10,
-        borderColor: '#96b1de',      
-        borderWidth: 1,           // Border width
-        padding: 10,              
-        borderRadius: 5,         
+        color: colors.text,
+        lineHeight: 24,
+        marginVertical: 5,
+    },
+    label: {
+        fontSize: 14,
+        color: colors.primary,
+        fontWeight: 'bold',
+    },
+    value: {
+        fontSize: 14,
+        color: colors.text,
     },
 });
 

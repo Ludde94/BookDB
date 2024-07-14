@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import colors from '../../themes';
 
 const styles = StyleSheet.create({
     buttonContainer: {
@@ -12,10 +13,10 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     wantToReadButton: {
-        backgroundColor: '#ff6347', // example color
+        backgroundColor: colors.primary
     },
     collectionButton: {
-        backgroundColor: '#4682b4', // example color
+        backgroundColor: colors.accent
     },
     buttonText: {
         fontSize: 16,
