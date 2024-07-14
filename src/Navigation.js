@@ -1,5 +1,5 @@
 import React from 'react';
-import WishlistScreen from './screens/WishlistScreen/WishlistScreen'
+import WishlistScreen from './screens/WishlistScreen/WishlistScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -19,21 +19,21 @@ const Tab = createBottomTabNavigator();
 const AddBookStack = createStackNavigator();
 const WishlistStack = createStackNavigator();
 const ReadBooksStack = createStackNavigator();
-
+const StatisticsStack = createStackNavigator();
 
 function AddBookStackScreen() {
   return (
     <AddBookStack.Navigator screenOptions={{
       headerStyle: {
-        backgroundColor: colors.background // Apply red color here too
-      }
+        backgroundColor: colors.background,
+      },
     }}>
       <AddBookStack.Screen 
         name="AddBook" 
         component={AddBookScreen} 
         options={{ 
           title: 'Search',
-          headerShown: false // Hide the header for the Search page
+          headerShown: false,
         }} 
       />
       <AddBookStack.Screen name="BookDetails" component={BookDetailScreen} options={{ title: 'Book Details' }} />
@@ -46,8 +46,8 @@ function WishlistStackScreen() {
   return (
     <WishlistStack.Navigator screenOptions={{
       headerStyle: {
-        backgroundColor: colors.background 
-      }
+        backgroundColor: colors.background,
+      },
     }}>
       <WishlistStack.Screen name="WishlistMain" component={WishlistScreen} options={{ title: 'Wishlist' }} />
       <WishlistStack.Screen name="EditBook" component={EditBookScreen} options={{ title: 'Edit Book' }} />
@@ -59,12 +59,24 @@ function ReadBooksStackScreen() {
   return (
     <ReadBooksStack.Navigator screenOptions={{
       headerStyle: {
-        backgroundColor: colors.background // Apply red color here too
-      }
+        backgroundColor: colors.background,
+      },
     }}>
       <ReadBooksStack.Screen name="ReadBooksMain" component={ReadBooksScreen} options={{ title: 'My Library' }} />
       <ReadBooksStack.Screen name="EditBook" component={EditBookScreen} options={{ title: 'Edit Book' }} />
     </ReadBooksStack.Navigator>
+  );
+}
+
+function StatisticsStackScreen() {
+  return (
+    <StatisticsStack.Navigator screenOptions={{
+      headerStyle: {
+        backgroundColor: colors.background,
+      },
+    }}>
+      <StatisticsStack.Screen name="StatisticsMain" component={StatisticsScreen} options={{ title: 'Statistics' }} />
+    </StatisticsStack.Navigator>
   );
 }
 
@@ -77,28 +89,31 @@ function Navigation() {
             tabBarIcon: ({ focused, color, size }) => {
               let iconName;
               if (route.name === 'My Library') {
-                  iconName = 'library-books';
+                iconName = 'library-books';
               } else if (route.name === 'Wishlist') {
-                  iconName = 'favorite-border';
+                iconName = 'favorite-border';
               } else if (route.name === 'Search') {
-                  iconName = 'search';
+                iconName = 'search';
+              } else if (route.name === 'Statistics') {
+                iconName = 'bar-chart';
               }
               return (
-                  <View style={{ width: '100%', alignItems: 'center', justifyContent: 'center', paddingTop: 0 }}> 
-                      {focused && <View style={styles.activeTabIndicator} />}
-                      <MaterialIcons name={iconName} size={size} color={color} />
-                  </View>
+                <View style={{ width: '100%', alignItems: 'center', justifyContent: 'center', paddingTop: 0 }}> 
+                  {focused && <View style={styles.activeTabIndicator} />}
+                  <MaterialIcons name={iconName} size={size} color={color} />
+                </View>
               );
-          },
+            },
             tabBarActiveTintColor: colors.primary,
             tabBarInactiveTintColor: colors.text,
             tabBarStyle: styles.tabBar,
           })}
         >
           <Tab.Screen name="My Library" component={ReadBooksStackScreen} options={{headerShown: false}} />
-          <Tab.Screen name="Wishlist" component={WishlistStackScreen} options={{headerShown: false}}/>
-          <Tab.Screen name="Search" component={AddBookStackScreen} options={{headerShown: false}}/>
-          <Tab.Screen name="Statistics" component={StatisticsScreen} options={{ title: 'Statistics', headerShown: false }} />
+          <Tab.Screen name="Wishlist" component={WishlistStackScreen} options={{headerShown: false}} />
+          <Tab.Screen name="Statistics" component={StatisticsStackScreen} options={{headerShown: false}} />
+          <Tab.Screen name="Search" component={AddBookStackScreen} options={{headerShown: false}} />
+        
         </Tab.Navigator>
       </NavigationContainer>
     </SafeAreaView>
@@ -107,23 +122,22 @@ function Navigation() {
 
 const styles = StyleSheet.create({
   safeArea: {
-      flex: 1,
-      backgroundColor: colors.background,
+    flex: 1,
+    backgroundColor: colors.background,
   },
   tabBar: {
-      backgroundColor: colors.background,
-      borderTopColor: 'transparent',
-      height: 60, // Adjusted for better touch area
-      paddingBottom: 5,
+    backgroundColor: colors.background,
+    borderTopColor: 'transparent',
+    height: 60,
+    paddingBottom: 5,
   },
   activeTabIndicator: {
-      position: 'absolute',
-      top: -8, // Adjust this if the line appears too low; sometimes -1 or -2 works to bring it to the very top edge
-      height: 4,
-      width: '100%',
-      backgroundColor: colors.primary, // Highlight color for the active tab
+    position: 'absolute',
+    top: -8,
+    height: 4,
+    width: '100%',
+    backgroundColor: colors.primary,
   },
 });
-
 
 export default Navigation;
