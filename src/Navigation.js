@@ -24,7 +24,7 @@ function AddBookStackScreen() {
   return (
     <AddBookStack.Navigator screenOptions={{
       headerStyle: {
-        backgroundColor: colors.background
+        backgroundColor: colors.background // Apply red color here too
       }
     }}>
       <AddBookStack.Screen 
@@ -43,7 +43,11 @@ function AddBookStackScreen() {
 
 function WishlistStackScreen() {
   return (
-    <WishlistStack.Navigator>
+    <WishlistStack.Navigator screenOptions={{
+      headerStyle: {
+        backgroundColor: colors.background 
+      }
+    }}>
       <WishlistStack.Screen name="WishlistMain" component={WishlistScreen} options={{ title: 'Wishlist' }} />
       <WishlistStack.Screen name="EditBook" component={EditBookScreen} options={{ title: 'Edit Book' }} />
     </WishlistStack.Navigator>
@@ -52,7 +56,11 @@ function WishlistStackScreen() {
 
 function ReadBooksStackScreen() {
   return (
-    <ReadBooksStack.Navigator>
+    <ReadBooksStack.Navigator screenOptions={{
+      headerStyle: {
+        backgroundColor: colors.background // Apply red color here too
+      }
+    }}>
       <ReadBooksStack.Screen name="ReadBooksMain" component={ReadBooksScreen} options={{ title: 'My Library' }} />
       <ReadBooksStack.Screen name="EditBook" component={EditBookScreen} options={{ title: 'Edit Book' }} />
     </ReadBooksStack.Navigator>

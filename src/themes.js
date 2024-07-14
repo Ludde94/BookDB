@@ -1,10 +1,10 @@
 const colors = {
-  primary: '#50c883',
-  secondary: '#96b1de',
-  background: '#fbfefc',
-  text: '#05100a',
+  primary: '#B79A56',
+  secondary: '#C8D398',
+  background: '#F9F6F1',
+  text: '#0C0A05',
   subtleText: '#808080',
-  accent: '#746ed2',
+  accent: '#A9C577',
 };
 
 export default colors;

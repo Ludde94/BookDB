@@ -1,15 +1,25 @@
-// App.js
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, View, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import * as NavigationBar from 'expo-navigation-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Navigation from './src/Navigation';
 import colors from './src/themes';
 
 export default function App() {
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      NavigationBar.setBackgroundColorAsync(colors.background);
+      NavigationBar.setButtonStyleAsync('dark');
+    }
+  }, []);
+
   return (
     <SafeAreaProvider>
-      <StatusBar style="dark" backgroundColor={colors.background} />
+      <StatusBar 
+        barStyle="light-content"
+        backgroundColor={colors.background}
+      />
       <View style={styles.container}>
         <Navigation />
       </View>
