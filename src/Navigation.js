@@ -89,7 +89,7 @@ function Navigation() {
                   </View>
               );
           },
-            tabBarActiveTintColor: colors.accent,
+            tabBarActiveTintColor: colors.primary,
             tabBarInactiveTintColor: colors.text,
             tabBarStyle: styles.tabBar,
           })}
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
       top: -8, // Adjust this if the line appears too low; sometimes -1 or -2 works to bring it to the very top edge
       height: 4,
       width: '100%',
-      backgroundColor: colors.accent, // Highlight color for the active tab
+      backgroundColor: colors.primary, // Highlight color for the active tab
   },
 });
 
