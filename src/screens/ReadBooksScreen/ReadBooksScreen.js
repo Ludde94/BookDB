@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, StyleSheet, ScrollView, RefreshControl } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, RefreshControl, TouchableOpacity } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import styles from './ReadBooksStyles'
-import { fetchBooksFromLibrary } from '../../db/Storage'; // Adjust the import path to where your storage file is located
-import BooksCardEdit from '../../components/BookCardEdit'; 
+import styles from './ReadBooksStyles';
+import { fetchBooksFromLibrary } from '../../db/Storage';
+import BooksCardEdit from '../../components/BookCardEdit';
 
-export default function ReadBooksScreen({navigation, route}) {
+export default function ReadBooksScreen({ navigation }) {
   const [books, setBooks] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -30,16 +30,27 @@ export default function ReadBooksScreen({navigation, route}) {
     <View style={styles.container}>
       <ScrollView
         style={styles.bookList}
+        contentContainerStyle={{ flexGrow: 1 }}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        {books.map((book, index) => (
-  <BooksCardEdit key={index} book={book} navigation={navigation} />
-))}
+        {books.length > 0 ? (
+          books.map((book, index) => (
+            <BooksCardEdit key={index} book={book} navigation={navigation} />
+          ))
+        ) : (
+          
+
+          
+          <View style={styles.emptyContainer}>
+            <Text style={styles.emptyText}>Get started by adding some books!</Text>
+            <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('Search')}>
+              <Text style={styles.addButtonText}>Add a Book</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </ScrollView>
     </View>
   );
 }
-
-
