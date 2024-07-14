@@ -4,15 +4,12 @@ import colors from '../../themes'; // Ensure this is the correct path
 
 const styles = StyleSheet.create({
     detail: {
-        paddingVertical: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: colors.accent,
+        paddingVertical: 0,
         marginVertical: 5,
     },
     description: {
         fontSize: 16,
         color: colors.text,
-        lineHeight: 24,
         marginVertical: 5,
     },
     label: {
