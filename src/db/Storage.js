@@ -51,22 +51,22 @@ export const fetchBooksFromWantToRead = async () => {
 };
 
 // Remove a book from the library
-export const removeBookFromLibrary = async (bookId) => {
+export const removeBookFromLibrary = async (book) => {
   try {
-    const key = `library_${bookId}`;
+    const key = `library_${book.id}`;
     await AsyncStorage.removeItem(key);
-    console.log(`Book with ID ${bookId} removed from library.`);
+    console.log(`Book with ID ${book.id} removed from library.`);
   } catch (error) {
     console.error('Failed to remove the book from library:', error);
   }
 };
 
 // Remove a book from the "want to read" list
-export const removeBookFromWantToRead = async (bookId) => {
+export const removeBookFromWantToRead = async (book) => {
   try {
-    const key = `wantToRead_${bookId}`;
+    const key = `wantToRead_${book.id}`;
     await AsyncStorage.removeItem(key);
-    console.log(`Book with ID ${bookId} removed from "want to read" list.`);
+    console.log(`Book with ID ${book.id} removed from "want to read" list.`);
   } catch (error) {
     console.error('Failed to remove the book from "want to read" list:', error);
   }
