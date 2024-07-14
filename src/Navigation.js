@@ -12,6 +12,7 @@ import colors from './themes';
 import Scanner from './screens/ScannerScreen/ScannerScreen';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import EditBookScreen from './screens/EditBookScreen/EditBookScreen';
+import StatisticsScreen from './screens/StatisticsScreen/StatisticsScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -97,6 +98,7 @@ function Navigation() {
           <Tab.Screen name="My Library" component={ReadBooksStackScreen} options={{headerShown: false}} />
           <Tab.Screen name="Wishlist" component={WishlistStackScreen} options={{headerShown: false}}/>
           <Tab.Screen name="Search" component={AddBookStackScreen} options={{headerShown: false}}/>
+          <Tab.Screen name="Statistics" component={StatisticsScreen} options={{ title: 'Statistics', headerShown: false }} />
         </Tab.Navigator>
       </NavigationContainer>
     </SafeAreaView>
