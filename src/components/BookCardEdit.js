@@ -5,15 +5,15 @@ import colors from '../themes'; // Ensure the path is correct
 const screenHeight = Dimensions.get('window').height;
 import placeholderImage from '../../assets/ImageNotFound.jpg'; // Adjust the path as necessary
 
-
 const BooksCardEdit = ({ book, navigation }) => {
   return (
     <View style={styles.cardContainer}>
-<Image 
-                source={book.image ? { uri: book.image } : placeholderImage} 
-                style={styles.image} 
-                resizeMode="contain" 
-            />      <View style={styles.infoContainer}>
+      <Image 
+        source={book.image ? { uri: book.image } : placeholderImage} 
+        style={styles.image} 
+        resizeMode="contain" 
+      />
+      <View style={styles.infoContainer}>
         <Text style={styles.title} numberOfLines={1} ellipsizeMode='tail'>{book.title}</Text>
         <Text style={styles.details} numberOfLines={1} ellipsizeMode='tail'>Author: {book.authors}</Text>
         <Text style={styles.details} numberOfLines={1} ellipsizeMode='tail'>Year: {book.publishedYear}</Text>

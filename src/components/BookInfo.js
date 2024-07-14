@@ -3,16 +3,32 @@ import { View, Text } from 'react-native';
 import styles from './styles/BookDetailInfoStyles';
 
 const BookDetailInfo = ({ book }) => (
-    <>
-        {book.authors && <Text style={styles.detail}>Author: {book.authors}</Text>}
-        {book.publishedYear && <Text style={styles.detail}>Year: {book.publishedYear}</Text>}
-        {book.publisher && <Text style={styles.detail}>Publisher: {book.publisher}</Text>}
-        {book.genre && <Text style={styles.detail}>Genre: {book.genre}</Text>}
-        {book.isbn && <Text style={styles.detail}>ISBN: {book.isbn}</Text>}
-        {book.pageCount && <Text style={styles.description}>Pages: {book.pageCount}</Text>}
-        {book.language && <Text style={styles.description}>language: {book.language}</Text>}
-        {book.description && <Text style={styles.description}>Description: {book.description}</Text>}
-    </>
+    <View style={styles.container}>
+        <View style={styles.detail}>
+            <Text style={styles.label}>Author: </Text>
+            <Text style={styles.value}>{book.authors}</Text>
+        </View>
+        <View style={styles.detail}>
+            <Text style={styles.label}>Year: </Text>
+            <Text style={styles.value}>{book.publishedYear}</Text>
+        </View>
+        <View style={styles.detail}>
+            <Text style={styles.label}>Publisher: </Text>
+            <Text style={styles.value}>{book.publisher}</Text>
+        </View>
+        <View style={styles.detail}>
+            <Text style={styles.label}>Genre: </Text>
+            <Text style={styles.value}>{book.genre}</Text>
+        </View>
+        <View style={styles.detail}>
+            <Text style={styles.label}>ISBN: </Text>
+            <Text style={styles.value}>{book.isbn}</Text>
+        </View>
+        <View style={styles.detail}>
+            <Text style={styles.label}>Description:</Text>
+            <Text style={styles.description}>{book.description}</Text>
+        </View>
+    </View>
 );
 
 export default BookDetailInfo;
