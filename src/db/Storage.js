@@ -49,3 +49,59 @@ export const fetchBooksFromWantToRead = async () => {
     return [];
   }
 };
+
+// Remove a book from the library
+export const removeBookFromLibrary = async (bookId) => {
+  try {
+    const key = `library_${bookId}`;
+    await AsyncStorage.removeItem(key);
+    console.log(`Book with ID ${bookId} removed from library.`);
+  } catch (error) {
+    console.error('Failed to remove the book from library:', error);
+  }
+};
+
+// Remove a book from the "want to read" list
+export const removeBookFromWantToRead = async (bookId) => {
+  try {
+    const key = `wantToRead_${bookId}`;
+    await AsyncStorage.removeItem(key);
+    console.log(`Book with ID ${bookId} removed from "want to read" list.`);
+  } catch (error) {
+    console.error('Failed to remove the book from "want to read" list:', error);
+  }
+};
+
+// Move a book from "want to read" list to library
+export const moveBookToLibrary = async (bookId) => {
+  try {
+    const key = `wantToRead_${bookId}`;
+    const book = await AsyncStorage.getItem(key);
+    if (book) {
+      await saveBookToLibrary(JSON.parse(book));
+      await removeBookFromWantToRead(bookId);
+      console.log(`Book with ID ${bookId} moved from "want to read" list to library.`);
+    } else {
+      console.log(`Book with ID ${bookId} not found in "want to read" list.`);
+    }
+  } catch (error) {
+    console.error('Failed to move the book to library:', error);
+  }
+};
+
+// Move a book from library to "want to read" list
+export const moveBookToWantToRead = async (bookId) => {
+  try {
+    const key = `library_${bookId}`;
+    const book = await AsyncStorage.getItem(key);
+    if (book) {
+      await saveBookToWantToRead(JSON.parse(book));
+      await removeBookFromLibrary(bookId);
+      console.log(`Book with ID ${bookId} moved from library to "want to read" list.`);
+    } else {
+      console.log(`Book with ID ${bookId} not found in library.`);
+    }
+  } catch (error) {
+    console.error('Failed to move the book to "want to read" list:', error);
+  }
+};
