@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import ReadBooksScreen from './screens/ReadBooksScreen/ReadBooksScreen.js';
 import AddBookScreen from './screens/AddBookScreen/AddBookScreen.js';
 import BookDetailScreen from './screens/BookDetailScreen/BookDetailScreen.js';
-import WishlistScreen from './screens/WishlistScreen/WishlistScreen.js';
+import WishlistScreen from './screens/Wishlistscreen/WishlistScreen.js';
 import colors from './themes';
 import Scanner from './screens/ScannerScreen/ScannerScreen.js';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
