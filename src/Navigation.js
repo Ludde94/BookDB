@@ -1,7 +1,7 @@
 import React from 'react';
+import WishlistScreen from './screens/WishlistScreen/WishlistScreen'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, Text } from 'react-native';
-import WishlistScreen from './screens/Wishlistscreen/WishlistScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
