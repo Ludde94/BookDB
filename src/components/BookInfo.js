@@ -8,6 +8,16 @@ const BookDetailInfo = ({ book }) => {
         return isbn.replace('ISBN_10:', '').replace('ISBN_13:', '').trim();
     };
 
+    const formatYear = (dateString) => {
+        if (!dateString) return ''; // Handle empty or undefined date strings
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) {
+            // Handle invalid date formats
+            return dateString.split('-')[0]; // Fallback: extract the year part if date parsing fails
+        }
+        return date.getFullYear();
+    };
+
     return (
         <View style={styles.container}>
             {book.authors && (
@@ -19,7 +29,7 @@ const BookDetailInfo = ({ book }) => {
             {book.publishedYear && (
                 <View style={styles.detail}>
                     <Text style={styles.label}>Year: </Text>
-                    <Text style={styles.value}>{book.publishedYear}</Text>
+                    <Text style={styles.value}>{formatYear(book.publishedYear)}</Text>
                 </View>
             )}
             {book.publisher && (

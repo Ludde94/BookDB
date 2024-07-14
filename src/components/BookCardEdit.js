@@ -6,6 +6,17 @@ const screenHeight = Dimensions.get('window').height;
 import placeholderImage from '../../assets/ImageNotFound.jpg'; // Adjust the path as necessary
 
 const BooksCardEdit = ({ book, navigation }) => {
+
+  const formatYear = (dateString) => {
+    if (!dateString) return ''; // Handle empty or undefined date strings
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+        // Handle invalid date formats
+        return dateString.split('-')[0]; // Fallback: extract the year part if date parsing fails
+    }
+    return date.getFullYear();
+};
+
   return (
     <View style={styles.cardContainer}>
       <Image 
@@ -16,7 +27,7 @@ const BooksCardEdit = ({ book, navigation }) => {
       <View style={styles.infoContainer}>
         <Text style={styles.title} numberOfLines={1} ellipsizeMode='tail'>{book.title}</Text>
         <Text style={styles.details} numberOfLines={1} ellipsizeMode='tail'>Author: {book.authors}</Text>
-        <Text style={styles.details} numberOfLines={1} ellipsizeMode='tail'>Year: {book.publishedYear}</Text>
+        <Text style={styles.details} numberOfLines={1} ellipsizeMode='tail'>Year: {formatYear(book.publishedYear)}</Text>
         <Text style={styles.details} numberOfLines={1} ellipsizeMode='tail'>Publisher: {book.publisher}</Text>
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EditBook', { book })}>
           <Text style={styles.buttonText}>Edit</Text>
