@@ -25,7 +25,7 @@ const BooksCardEdit = ({ book, navigation }) => {
               <Text style={styles.details} numberOfLines={1} ellipsizeMode='tail'>Year: {formatYear(book.publishedYear)}</Text>
               <Text style={styles.details} numberOfLines={1} ellipsizeMode='tail'>Publisher: {book.publisher}</Text>
               <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EditBook', { book })}>
-                  <Text style={styles.buttonText}>Edit</Text>
+                  <Text style={styles.buttonText}>Manage Book</Text>
               </TouchableOpacity>
           </View>
       </View>

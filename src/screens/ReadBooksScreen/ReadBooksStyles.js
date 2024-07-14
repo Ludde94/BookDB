@@ -28,16 +28,17 @@ export default StyleSheet.create({
     marginBottom: 20,
   },
   addButton: {
-    backgroundColor: colors.primary, // A vibrant green for action buttons
-    padding: 12,
-    borderRadius: 8,
-    elevation: 3, // Slight shadow for 3D effect
+    marginTop: 10,
+    paddingVertical: 8, // Increased padding for easier pressing
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    backgroundColor: colors.primary, // Subtle background color
   },
   addButtonText: {
     color: colors.background,
-    fontSize: 16,
-    fontWeight: '500', // Semi-bold for readability
-    textAlign: 'center',
+        fontSize: 14, // Slightly larger text
+        fontWeight: 'bold',
+        textAlign: 'center',
   },
   
 });

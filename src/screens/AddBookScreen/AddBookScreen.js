@@ -9,7 +9,7 @@ import searchBooks from '../../api/ApiCalls';
 export default function AddBookScreen({ navigation, route }) {
   const [books, setBooks] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState('Harry Potter');
   const [hasMoreBooks, setHasMoreBooks] = useState(true);  // State to track if there are more books to load
 
   useEffect(() => {
