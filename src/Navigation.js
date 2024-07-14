@@ -16,6 +16,8 @@ const Tab = createBottomTabNavigator();
 
 const AddBookStack = createStackNavigator();
 const WishlistStack = createStackNavigator();
+const ReadBooksStack = createStackNavigator();
+
 
 function AddBookStackScreen() {
   return (
@@ -47,6 +49,15 @@ function WishlistStackScreen() {
   );
 }
 
+function ReadBooksStackScreen() {
+  return (
+    <ReadBooksStack.Navigator>
+      <ReadBooksStack.Screen name="ReadBooksMain" component={ReadBooksScreen} options={{ title: 'My Library' }} />
+      <ReadBooksStack.Screen name="EditBook" component={EditBookScreen} options={{ title: 'Edit Book' }} />
+    </ReadBooksStack.Navigator>
+  );
+}
+
 export default function Navigation() {
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -72,7 +83,7 @@ export default function Navigation() {
             tabBarStyle: { backgroundColor: colors.background },
           })}
         >
-          <Tab.Screen name="My Library" component={ReadBooksScreen} />
+          <Tab.Screen name="My Library" component={ReadBooksStackScreen} options={{ headerShown: false }} />
           <Tab.Screen name="Wishlist" component={WishlistStackScreen} options={{ headerShown: false }} />
           <Tab.Screen name="Search" component={AddBookStackScreen} options={{ headerShown: false }} />
         </Tab.Navigator>

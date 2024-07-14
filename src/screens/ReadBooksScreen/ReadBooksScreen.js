@@ -3,9 +3,9 @@ import { View, Text, StyleSheet, ScrollView, RefreshControl } from 'react-native
 import { useFocusEffect } from '@react-navigation/native';
 import styles from './ReadBooksStyles'
 import { fetchBooksFromLibrary } from '../../db/Storage'; // Adjust the import path to where your storage file is located
-import BooksCardEdit from '../../components/BookCardEdit'; // Adjust the import path to where your ReadBooksCard file is located
+import BooksCardEdit from '../../components/BookCardEdit'; 
 
-export default function ReadBooksScreen() {
+export default function ReadBooksScreen({navigation, route}) {
   const [books, setBooks] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -35,8 +35,8 @@ export default function ReadBooksScreen() {
         }
       >
         {books.map((book, index) => (
-          <BooksCardEdit key={index} book={book} />
-        ))}
+  <BooksCardEdit key={index} book={book} navigation={navigation} />
+))}
       </ScrollView>
     </View>
   );
