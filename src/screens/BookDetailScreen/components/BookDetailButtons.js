@@ -1,15 +1,24 @@
 import React from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text, Alert } from 'react-native';
 import styles from '../../../components/styles/BookDetailButtonsStyles';
 import { saveBookToLibrary, saveBookToWantToRead } from '../../../db/Storage';
 
 const BookDetailButtons = ({ book }) => {
-    const addToCollection = () => {
-        saveBookToLibrary(book);
+    const addToCollection = async () => {
+        try {
+            await saveBookToLibrary(book);
+            Alert.alert("Success", "Book added to library.");
+        } catch (error) {
+            Alert.alert("Error", "Failed to add book to library.");
+        }
     };
-
-    const addToWantToRead = () => {
-        saveBookToWantToRead(book);
+    const addToWantToRead = async () => {
+        try {
+            await saveBookToWantToRead(book);
+            Alert.alert("Success", "Book saved for later.");
+        } catch (error) {
+            Alert.alert("Error", "Failed to save book for later.");
+        }
     };
 
     return (
