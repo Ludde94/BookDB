@@ -4,7 +4,7 @@ import { PieChart } from 'react-native-chart-kit';
 import { fetchBooksFromLibrary, fetchBooksFromWantToRead } from '../../db/Storage.js';
 import colors from '../../themes.js';
 import { useFocusEffect } from '@react-navigation/native';
-import styles from './styles/StatisticsScreenStyles.js'; 
+import styles from './components/styles/StatisticsScreenStyles.js';
 
 const StatisticsScreen = () => {
   const [libraryBooks, setLibraryBooks] = useState([]);
