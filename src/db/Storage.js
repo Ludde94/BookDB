@@ -1,21 +1,28 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
 // Save a book to the library collection
 export const saveBookToLibrary = async (book) => {
   try {
     const key = `library_${book.id}`;
-    const value = JSON.stringify(book);
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+    const value = JSON.stringify({ ...book, savedDate: formattedDate });
     await AsyncStorage.setItem(key, value);
     console.log(`Book saved to library under key: ${key}`);
   } catch (error) {
     console.error('Failed to save the book to library:', error);
   }
 };
+
 // Save a book to the "want to read" list
 export const saveBookToWantToRead = async (book) => {
   try {
     const key = `wantToRead_${book.id}`;
-    const value = JSON.stringify(book);
+    const value = JSON.stringify(book.id);
     await AsyncStorage.setItem(key, value);
     console.log('Book saved to "want to read" list.');
   } catch (error) {

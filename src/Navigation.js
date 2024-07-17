@@ -18,22 +18,36 @@ const Tab = createBottomTabNavigator();
 const AddBookStack = createStackNavigator();
 const WishlistStack = createStackNavigator();
 const ReadBooksStack = createStackNavigator();
+const StatisticsStack = createStackNavigator();
 
+function stackScreenOptions(title) {
+  return {
+    headerTitle: title,
+    headerTitleAlign: 'center',
+    headerStyle: {
+      backgroundColor: colors.background,
+    },
+    headerTintColor: colors.text,
+    headerTitleStyle: styles.header,
+  };
+}
 
 function AddBookStackScreen() {
   return (
-    <AddBookStack.Navigator screenOptions={{
-      headerStyle: {
-        backgroundColor: colors.background // Apply red color here too
-      }
-    }}>
+    <AddBookStack.Navigator>
       <AddBookStack.Screen 
         name="AddBook" 
         component={AddBookScreen} 
-        options={{ 
-          title: 'Search',
-          headerShown: false // Hide the header for the Search page
-        }} 
+        options={{
+          headerTitle: 'Search Books',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: colors.background,
+          },
+          headerTintColor: colors.text,
+          headerTitleStyle: styles.header,
+          headerShown: false  // Ensures no header is displayed for the search screen
+        }}
       />
       <AddBookStack.Screen 
         name="BookDetails" 
@@ -68,13 +82,17 @@ function WishlistStackScreen() {
 
 function ReadBooksStackScreen() {
   return (
-    <ReadBooksStack.Navigator screenOptions={{
-      headerStyle: {
-        backgroundColor: colors.background // Apply red color here too
-      }
-    }}>
-      <ReadBooksStack.Screen name="ReadBooksMain" component={ReadBooksScreen} options={{ title: 'My Library' }} />
-      <ReadBooksStack.Screen name="EditBook" component={EditBookScreen} options={{ title: 'Edit Book' }} />
+    <ReadBooksStack.Navigator>
+      <ReadBooksStack.Screen 
+        name="ReadBooksMain" 
+        component={ReadBooksScreen} 
+        options={stackScreenOptions('My Library')}
+      />
+      <ReadBooksStack.Screen 
+        name="EditBook" 
+        component={EditBookScreen} 
+        options={stackScreenOptions('Edit Book')}
+      />
     </ReadBooksStack.Navigator>
   );
 }
@@ -115,7 +133,7 @@ function Navigation() {
                   <MaterialIcons name={iconName} size={size} color={color} />
                 </View>
               );
-          },
+            },
             tabBarActiveTintColor: colors.primary,
             tabBarInactiveTintColor: colors.text,
             tabBarStyle: styles.tabBar,
@@ -159,11 +177,16 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   activeTabIndicator: {
-      position: 'absolute',
-      top: -8, // Adjust this if the line appears too low; sometimes -1 or -2 works to bring it to the very top edge
-      height: 4,
-      width: '100%',
-      backgroundColor: colors.primary, // Highlight color for the active tab
+    position: 'absolute',
+    top: -8,
+    height: 4,
+    width: '100%',
+    backgroundColor: colors.primary,
+  },
+  header: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: colors.text,
   },
 });
 
