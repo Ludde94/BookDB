@@ -29,7 +29,7 @@ export default function SearchBar({ onSearch, onScan }) {
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        placeholder="Search by title, ISBN, or scan barcode...."
+        placeholder="Search a book or scan a barcode"
         onChangeText={setSearchQuery}
         value={searchQuery}
         onSubmitEditing={handleSearch}
