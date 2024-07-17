@@ -1,3 +1,4 @@
+// Toast.js
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, Animated } from 'react-native';
 
@@ -21,6 +22,8 @@ const Toast = ({ visible, message }) => {
                     }).start(() => setShowToast(false));
                 }, 2000);
             });
+        } else {
+            setShowToast(false);
         }
     }, [visible]);
 
@@ -36,7 +39,7 @@ const Toast = ({ visible, message }) => {
 const styles = StyleSheet.create({
     toast: {
         position: 'absolute',
-        top: 40, // Adjust this value to control the top margin
+        top: 50,
         left: '10%',
         right: '10%',
         backgroundColor: '#333',

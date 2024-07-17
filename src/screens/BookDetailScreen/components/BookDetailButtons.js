@@ -3,10 +3,9 @@ import { View, TouchableOpacity, Text } from 'react-native';
 import styles from '../../../components/styles/BookDetailButtonsStyles';
 import { saveBookToLibrary, removeBookFromLibrary, saveBookToWantToRead, removeBookFromWantToRead, fetchBooksFromLibrary, fetchBooksFromWantToRead } from '../../../db/Storage';
 
-const BookDetailButtons = ({ book }) => {
+const BookDetailButtons = ({ book, onSuccess, onError }) => {
     const [isInLibrary, setIsInLibrary] = useState(false);
     const [isInWishlist, setIsInWishlist] = useState(false);
-    const [confirmationMessage, setConfirmationMessage] = useState('');
 
     useEffect(() => {
         checkIfInLibrary();
@@ -28,55 +27,41 @@ const BookDetailButtons = ({ book }) => {
     const addToCollection = async () => {
         try {
             await saveBookToLibrary(book);
-            setConfirmationMessage('Book added to library.');
-            setIsInLibrary(true);  // Update the state
+            onSuccess('Book added to library.');
+            setIsInLibrary(true);
         } catch (error) {
-            setConfirmationMessage('Failed to add book to library.');
-        } finally {
-            clearConfirmationMessage();
+            onError('Failed to add book to library.');
         }
     };
 
     const removeFromCollection = async () => {
         try {
             await removeBookFromLibrary(book);
-            setConfirmationMessage('Book removed from library.');
-            setIsInLibrary(false);  // Update the state
+            onSuccess('Book removed from library.');
+            setIsInLibrary(false);
         } catch (error) {
-            setConfirmationMessage('Failed to remove book from library.');
-        } finally {
-            clearConfirmationMessage();
+            onError('Failed to remove book from library.');
         }
     };
 
     const addToWantToRead = async () => {
         try {
             await saveBookToWantToRead(book);
-            setConfirmationMessage('Book saved for later.');
-            setIsInWishlist(true);  // Update the state
+            onSuccess('Book saved for later.');
+            setIsInWishlist(true);
         } catch (error) {
-            setConfirmationMessage('Failed to save book for later.');
-        } finally {
-            clearConfirmationMessage();
+            onError('Failed to save book for later.');
         }
     };
 
     const removeFromWantToRead = async () => {
         try {
             await removeBookFromWantToRead(book);
-            setConfirmationMessage('Book removed from wishlist.');
-            setIsInWishlist(false);  // Update the state
+            onSuccess('Book removed from wishlist.');
+            setIsInWishlist(false);
         } catch (error) {
-            setConfirmationMessage('Failed to remove book from wishlist.');
-        } finally {
-            clearConfirmationMessage();
+            onError('Failed to remove book from wishlist.');
         }
-    };
-
-    const clearConfirmationMessage = () => {
-        setTimeout(() => {
-            setConfirmationMessage('');
-        }, 2000); // Clear the message after 2 seconds
     };
 
     return (
@@ -93,11 +78,6 @@ const BookDetailButtons = ({ book }) => {
             >
                 <Text style={styles.buttonText}>{isInLibrary ? "Remove from Library" : "Add to Library"}</Text>
             </TouchableOpacity>
-            {confirmationMessage ? (
-                <View style={styles.confirmationContainer}>
-                    <Text style={styles.confirmationText}>{confirmationMessage}</Text>
-                </View>
-            ) : null}
         </View>
     );
 };

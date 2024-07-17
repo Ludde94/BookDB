@@ -6,11 +6,7 @@ const screenHeight = Dimensions.get('window').height;
 import placeholderImage from '../../assets/ImageNotFound.jpg'; // Adjust the path as necessary
 
 const BooksCardEdit = ({ book, navigation }) => {
-  const formatYear = (dateString) => {
-      if (!dateString) return '';
-      const date = new Date(dateString);
-      return isNaN(date.getTime()) ? dateString.split('-')[0] : date.getFullYear();
-  };
+  
 
   return (
     <View style={styles.cardContainer}>
@@ -30,7 +26,7 @@ const BooksCardEdit = ({ book, navigation }) => {
       {book.publishedYear && (
         <View style={styles.detailsContainer}>
           <Text style={styles.detailsLabel}>Year:</Text>
-          <Text style={styles.detailsValue}>{formatYear(book.publishedYear)}</Text>
+          <Text style={styles.detailsValue}>{book.publishedYear}</Text>
         </View>
       )}
       {book.publisher && (

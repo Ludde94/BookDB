@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, Alert } from 'react-native';
 import styles from './styles/EditBookButtonsStyles';
 import { saveBookToLibrary, removeBookFromLibrary, fetchBooksFromLibrary, fetchBooksFromWantToRead, removeBookFromWantToRead } from '../../../db/Storage';
 
-const EditBookButtons = ({ book }) => {
+const EditBookButtons = ({ book, onSuccess, onError }) => {
     const [isInLibrary, setIsInLibrary] = useState(false);
     const [isInWishlist, setIsInWishlist] = useState(false);
 
@@ -27,10 +27,10 @@ const EditBookButtons = ({ book }) => {
     const removeFromWishlist = async () => {
         try {
             await removeBookFromWantToRead(book);
-            Alert.alert("Success", "Book removed from wishlist.");
-            setIsInWishlist(false);  // Optionally update state to reflect change
+            onSuccess("Book removed from wishlist");
+            setIsInWishlist(false);
         } catch (error) {
-            Alert.alert("Error", "Failed to remove book from wishlist.");
+            onError("Failed to remove book from wishlist");
         }
     };
 
@@ -38,18 +38,18 @@ const EditBookButtons = ({ book }) => {
         if (isInLibrary) {
             try {
                 await removeBookFromLibrary(book);
-                Alert.alert("Success", "Book removed from library.");
-                setIsInLibrary(false);  // Update the button status
+                onSuccess("Book removed from library");
+                setIsInLibrary(false);
             } catch (error) {
-                Alert.alert("Error", "Failed to remove book from library.");
+                onError("Failed to remove book from library");
             }
         } else {
             try {
                 await saveBookToLibrary(book);
-                Alert.alert("Success", "Book added to library.");
-                setIsInLibrary(true);  // Update the button status
+                onSuccess("Book added to library");
+                setIsInLibrary(true);
             } catch (error) {
-                Alert.alert("Error", "Failed to add to library.");
+                onError("Failed to add to library");
             }
         }
     };
