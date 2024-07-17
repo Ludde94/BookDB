@@ -3,7 +3,6 @@ import colors from '../../themes';
 
 const screenHeight = Dimensions.get('window').height;
 
-
 const styles = StyleSheet.create({
     cardContainer: {
         flexDirection: 'row',
@@ -59,8 +58,15 @@ const styles = StyleSheet.create({
     modalContent: {
         maxHeight: screenHeight * 0.6,
     },
+    wantToReadButton: {
+        backgroundColor: colors.primary, // Custom color for "Save for Later" button
+    },
+    collectionButton: {
+        backgroundColor: colors.secondary, // Custom color for "Add to Library" button
+    },
+    dangerButton: {
+        backgroundColor: colors.danger, // Danger color for already existing book
+    },
 });
-
-
 
 export default styles;

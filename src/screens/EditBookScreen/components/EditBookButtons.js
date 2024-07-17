@@ -7,7 +7,6 @@ const EditBookButtons = ({ book }) => {
     const [isInLibrary, setIsInLibrary] = useState(false);
     const [isInWishlist, setIsInWishlist] = useState(false);
 
-
     useEffect(() => {
         checkIfInLibrary();
         checkIfInWishlist();
@@ -30,7 +29,6 @@ const EditBookButtons = ({ book }) => {
             await removeBookFromWantToRead(book);
             Alert.alert("Success", "Book removed from wishlist.");
             setIsInWishlist(false);  // Optionally update state to reflect change
-
         } catch (error) {
             Alert.alert("Error", "Failed to remove book from wishlist.");
         }
@@ -43,7 +41,7 @@ const EditBookButtons = ({ book }) => {
                 Alert.alert("Success", "Book removed from library.");
                 setIsInLibrary(false);  // Update the button status
             } catch (error) {
-                Alert.alert("Error", "Failed to add book from library.");
+                Alert.alert("Error", "Failed to remove book from library.");
             }
         } else {
             try {
@@ -51,7 +49,7 @@ const EditBookButtons = ({ book }) => {
                 Alert.alert("Success", "Book added to library.");
                 setIsInLibrary(true);  // Update the button status
             } catch (error) {
-                Alert.alert("Error", "Failed add to library.");
+                Alert.alert("Error", "Failed to add to library.");
             }
         }
     };
@@ -59,11 +57,14 @@ const EditBookButtons = ({ book }) => {
     return (
         <View style={styles.buttonContainer}>
             {isInWishlist && (
-                <TouchableOpacity style={[styles.button, styles.removeFromWishlistButton]} onPress={removeFromWishlist}>
+                <TouchableOpacity style={[styles.button, styles.dangerButton]} onPress={removeFromWishlist}>
                     <Text style={styles.buttonText}>Remove from Wishlist</Text>
                 </TouchableOpacity>
             )}
-            <TouchableOpacity style={[styles.button, styles.moveBookToLibraryButton]} onPress={handleLibraryPress}>
+            <TouchableOpacity 
+                style={[styles.button, isInLibrary ? styles.dangerButton : styles.moveBookToLibraryButton]} 
+                onPress={handleLibraryPress}
+            >
                 <Text style={styles.buttonText}>{isInLibrary ? "Remove from Library" : "Add to My Library"}</Text>
             </TouchableOpacity>
         </View>

@@ -5,6 +5,7 @@ const colors = {
   text: '#050807',
   subtleText: '#808080',
   accent: '#6aaa93',
+  danger: '#ec942c'
 };
 
 /**primary: '#ae5792',

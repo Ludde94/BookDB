@@ -61,6 +61,9 @@ const styles = StyleSheet.create({
     modalContent: {
         maxHeight: screenHeight * 0.6,
     },
+    dangerButton: {
+        backgroundColor: colors.danger, 
+    },
 });
 
 export default styles;
