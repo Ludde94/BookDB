@@ -62,10 +62,35 @@ const styles = StyleSheet.create({
         backgroundColor: colors.primary, // Custom color for "Save for Later" button
     },
     collectionButton: {
-        backgroundColor: colors.secondary, // Custom color for "Add to Library" button
+        backgroundColor: colors.primary, // Custom color for "Add to Library" button
     },
     dangerButton: {
         backgroundColor: colors.danger, // Danger color for already existing book
+    },
+    confirmationContainer: {
+        position: 'absolute',
+        top: 0, // Position at the top
+        left: 0,
+        right: 0,
+        backgroundColor: 'rgba(0,0,0,0.6)',
+        padding: 10,
+        zIndex: 1000, // Make sure it overlays other components
+        alignItems: 'center',
+    },
+    confirmationText: {
+        color: 'white',
+        textAlign: 'center',
+    },
+    modalView: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 10,
+        alignItems: 'center',
+        maxHeight: screenHeight * 0.8,
+        width: '80%',
+    },
+    modalContent: {
+        maxHeight: screenHeight * 0.6,
     },
 });
 

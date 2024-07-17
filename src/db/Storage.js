@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Save a book to the library collection
 export const saveBookToLibrary = async (book) => {
+  
   try {
     const key = `library_${book.id}`;
     const currentDate = new Date();
@@ -22,11 +23,11 @@ export const saveBookToLibrary = async (book) => {
 export const saveBookToWantToRead = async (book) => {
   try {
     const key = `wantToRead_${book.id}`;
-    const value = JSON.stringify(book.id);
+    const value = JSON.stringify({ ...book});
     await AsyncStorage.setItem(key, value);
-    console.log('Book saved to "want to read" list.');
+    console.log(`Book saved to wishlist under key: ${key}`);
   } catch (error) {
-    console.error('Failed to save the book to "want to read" list:', error);
+    console.error('Failed to save the book to library:', error);
   }
 };
 
