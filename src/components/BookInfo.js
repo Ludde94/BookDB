@@ -20,6 +20,12 @@ const BookDetailInfo = ({ book }) => {
 
     return (
         <View style={styles.container}>
+            {book.savedDate && (
+                <View style={styles.detail}>
+                    <Text style={styles.label}>Saved Date: </Text>
+                    <Text style={styles.value}>{book.savedDate}</Text>
+                </View>
+            )}
             {book.authors && (
                 <View style={styles.detail}>
                     <Text style={styles.label}>Author: </Text>
