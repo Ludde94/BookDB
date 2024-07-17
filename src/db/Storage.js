@@ -3,7 +3,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Save a book to the library collection
 export const saveBookToLibrary = async (book) => {
-  
   try {
     const key = `library_${book.id}`;
     const currentDate = new Date();

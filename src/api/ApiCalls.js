@@ -1,6 +1,21 @@
 const GOOGLE_BASE_URL = 'https://www.googleapis.com/books/v1/volumes';
 const LIBRIS_BASE_URL = 'https://api.libris.kb.se/xsearch';
 
+// Utility function to extract year from various formats
+const formatYear = (date) => {
+  if (typeof date === 'string') {
+    return date.substring(0, 4);
+  }
+  if (Array.isArray(date)) {
+    let year = date[0];
+    if (year.startsWith('[') && year.endsWith(']')) {
+      year = year.slice(1, -1); // Remove brackets
+    }
+    return year;
+  }
+  return 'Unknown Year';
+};
+
 const searchBooks = async (searchQuery, startIndex = 0) => {
   const isISBN = searchQuery.match(/^(97(8|9))?\d{9}(\d|X)?$/);
   const googleParams = new URLSearchParams({
@@ -23,7 +38,7 @@ const searchBooks = async (searchQuery, startIndex = 0) => {
         return {
           id,
           title: volumeInfo.title,
-          publishedYear: volumeInfo.publishedDate,
+          publishedYear: formatYear(volumeInfo.publishedDate),
           authors: volumeInfo.authors,
           publisher: volumeInfo.publisher,
           description: volumeInfo.description,
@@ -47,7 +62,7 @@ const searchBooks = async (searchQuery, startIndex = 0) => {
       return data.xsearch.list.map(book => ({
         id: `${book.title}_${new Date().getTime()}`,
         title: book.title,
-        publishedYear: book.date,
+        publishedYear: formatYear(book.date),
         authors: book.creator,
         // Assuming Libris API response might not include pageCount, averageRating, or language.
         pageCount: 'N/A',
