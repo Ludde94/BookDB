@@ -2,36 +2,62 @@ import { StyleSheet } from 'react-native';
 import colors from '../../../../themes.js';
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
   container: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
+    padding: 20,
   },
   header: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 16,
+    marginBottom: 20,
+    color: colors.text,
+  },
+  loadingText: {
+    fontSize: 18,
+    textAlign: 'center',
+    marginTop: 20,
+  },
+  genreContainer: {
+    marginTop: 20,
+    paddingBottom: 20,
+  },
+  genreItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  colorIndicator: {
+    width: 20,
+    height: 20,
+    marginRight: 10,
+  },
+  genreText: {
+    fontSize: 16,
+    color: colors.text,
   },
   infoContainer: {
-    marginTop: 16,
-    alignItems: 'center',
+    marginTop: 20,
+    paddingVertical: 10,
+    borderTopWidth: 1,
+    borderTopColor: colors.subtleText,
   },
   infoText: {
-    fontSize: 18,  // Increased font size for info texts
+    fontSize: 16,
     color: colors.text,
-    marginVertical: 4,  // Added vertical margin for better spacing
-  },
-  AuthorText: {
-    fontSize: 16,  // Increased font size for info texts
-    color: colors.text,
-    marginVertical: 4,  // Added vertical margin for better spacing
+    marginBottom: 10,
   },
   subHeader: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginVertical: 10,
+    marginBottom: 10,
+    color: colors.text,
+  },
+  authorText: {
+    fontSize: 16,
+    color: colors.text,
   },
 });
-
 export default styles;

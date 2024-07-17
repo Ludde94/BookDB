@@ -1,22 +1,20 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, ScrollView, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, ScrollView, Dimensions, SafeAreaView, StyleSheet } from 'react-native';
 import { PieChart } from 'react-native-chart-kit';
-import { fetchBooksFromLibrary, fetchBooksFromWantToRead } from '../../db/Storage.js';
+import { fetchBooksFromLibrary } from '../../db/Storage.js';
 import colors from '../../themes.js';
 import { useFocusEffect } from '@react-navigation/native';
 import styles from './components/styles/StatisticsScreenStyles.js';
 
+const screenWidth = Dimensions.get('window').width;
+
 const StatisticsScreen = () => {
   const [libraryBooks, setLibraryBooks] = useState([]);
-  const [wantToReadBooks, setWantToReadBooks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const screenWidth = Dimensions.get('window').width;
 
   const fetchData = async () => {
     const library = await fetchBooksFromLibrary();
-    const wantToRead = await fetchBooksFromWantToRead();
     setLibraryBooks(library);
-    setWantToReadBooks(wantToRead);
     setLoading(false);
   };
 
@@ -28,35 +26,21 @@ const StatisticsScreen = () => {
   );
 
   if (loading) {
-    return <Text>Loading...</Text>;
+    return <Text style={styles.loadingText}>Loading your library...</Text>;
   }
 
-  // Aggregate genre and author data
   const genreCounts = {};
   const authorCounts = {};
 
-  const allBooks = [...libraryBooks, ...wantToReadBooks];
-
-  allBooks.forEach(book => {
-    // Count genres
+  libraryBooks.forEach(book => {
     if (book.genre) {
       book.genre.forEach(genre => {
-        if (genreCounts[genre]) {
-          genreCounts[genre]++;
-        } else {
-          genreCounts[genre] = 1;
-        }
+        genreCounts[genre] = (genreCounts[genre] || 0) + 1;
       });
     }
-
-    // Count authors
     if (book.authors) {
       book.authors.forEach(author => {
-        if (authorCounts[author]) {
-          authorCounts[author]++;
-        } else {
-          authorCounts[author] = 1;
-        }
+        authorCounts[author] = (authorCounts[author] || 0) + 1;
       });
     }
   });
@@ -71,50 +55,59 @@ const StatisticsScreen = () => {
   const genreData = Object.keys(genreCounts).map((genre, index) => ({
     name: genre,
     count: genreCounts[genre],
-    color: genreColors[index % genreColors.length], 
+    color: genreColors[index % genreColors.length],
     legendFontColor: colors.text,
     legendFontSize: 15,
   }));
 
-
   const sortedAuthors = Object.entries(authorCounts).sort((a, b) => b[1] - a[1]);
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.header}>Books Statistics</Text>
-      <PieChart
-        data={genreData}
-        width={screenWidth}
-        height={220}
-        chartConfig={{
-          backgroundColor: colors.accent,
-          backgroundGradientFrom: colors.background,
-          backgroundGradientTo: colors.background,
-          decimalPlaces: 2,
-          color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-          style: {
-            borderRadius: 16,
-          },
-        }}
-        accessor="count"
-        backgroundColor="transparent"
-        paddingLeft="15"
-        absolute
-      />
-      <View style={styles.infoContainer}>
-        <Text style={styles.infoText}>Total Books: {allBooks.length}</Text>
-        <Text style={styles.infoText}>Library Books: {libraryBooks.length}</Text>
-        <Text style={styles.infoText}>Want to Read Books: {wantToReadBooks.length}</Text>
-      </View>
-      <View style={styles.infoContainer}>
-        <Text style={styles.subHeader}>Top Authors</Text>
-        {sortedAuthors.map(([author, count], index) => (
-          <Text style ={styles.AuthorText} key={index}>{author}: {count} books</Text>
-        ))}
-      </View>
-    </ScrollView>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView contentContainerStyle={styles.container}>
+        <PieChart
+          data={genreData}
+          width={screenWidth}
+          height={220}
+          chartConfig={{
+            backgroundColor: colors.accent,
+            backgroundGradientFrom: colors.background,
+            backgroundGradientTo: colors.background,
+            decimalPlaces: 2,
+            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+            style: {
+              borderRadius: 16,
+            },
+          }}
+          accessor="count"
+          backgroundColor="transparent"
+          paddingLeft="15"
+          absolute
+          hasLegend={false}
+        />
+        <View style={styles.genreContainer}>
+          {genreData.map((genre, index) => (
+            <View style={styles.genreItem} key={index}>
+              <View style={[styles.colorIndicator, {backgroundColor: genre.color}]} />
+              <Text style={styles.genreText}>{genre.name}: {genre.count} books</Text>
+            </View>
+          ))}
+        </View>
+        
+        <View style={styles.infoContainer}>
+          <Text style={styles.subHeader}>Top Authors</Text>
+          {sortedAuthors.map(([author, count], index) => (
+            <Text style={styles.authorText} key={index}>{author}: {count} books</Text>
+          ))}
+        </View>
+        <View style={styles.infoContainer}>
+          <Text style={styles.infoText}>Total Books: {libraryBooks.length}</Text>
+          {/* Implement fetch for read books here */}
+          <Text style={styles.infoText}>Books Read: 8</Text> 
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
-
 
 export default StatisticsScreen;
