@@ -1,90 +1,42 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import colors from '../../themes'; 
-
-const screenHeight = Dimensions.get('window').height;
-
+import colors from '../../themes';
 
 export default StyleSheet.create({
   cardContainer: {
-    flexDirection: 'row',
-    paddingVertical: 15,
-    paddingHorizontal: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.subtleText, // Use subtleText for less prominent borders
     backgroundColor: colors.background,
-    alignItems: 'center',
+    borderRadius: 10,
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    shadowColor: colors.shadow,
+    shadowOffset: { height: 3, width: 3 },
+    elevation: 3,
+    marginHorizontal: 20,
+    marginVertical: 10,
+    flexDirection: 'row',
+    overflow: 'hidden',
+  },
+  bookImage: {
+    width: 100,
     height: 150,
+    resizeMode: 'cover'
   },
-  image: {
-    width: 80,
-    height: 120,
-    borderRadius: 5,
-  },
-  infoContainer: {
+  textContainer: {
     flex: 1,
-    marginLeft: 15,
-    justifyContent: 'center',
+    padding: 10,
   },
   title: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: colors.text, // Main text color
-    marginBottom: 4,
+    color: colors.textPrimary,
   },
-  detailsContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 4,
-  },
-  detailsLabel: {
+  authors: {
     fontSize: 14,
-    fontWeight: 'bold',
-    color: colors.subtleText, // Use secondary for labels
-    marginRight: 5,
+    color: colors.textSecondary,
+    marginTop: 5,
   },
-  detailsValue: {
-    fontSize: 14,
-    color: colors.text, // Main text color for values
-  },
-  publisherContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 4,
-  },
-  publisherLabel: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: colors.subtleText, // Consistent label coloring
-    marginRight: 5,
-  },
-  publisherValue: {
-    fontSize: 14,
-    color: colors.text, // Consistency in value coloring
-  },
-  button: {
-    borderRadius: 5,
-    backgroundColor: colors.accent, // Vibrant accent color for actions
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  buttonText: {
-    color: colors.background, // Contrast against the button background
+  details: {
     fontSize: 12,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalView: {
-    backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 10,
-    alignItems: 'center',
-    maxHeight: screenHeight * 0.8,
-    width: '80%',
-  },
-  modalContent: {
-    maxHeight: screenHeight * 0.6,
-  },
+    color: colors.textSecondary,
+    marginTop: 5
+  }
 });

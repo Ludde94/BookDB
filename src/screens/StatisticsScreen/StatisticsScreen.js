@@ -65,6 +65,8 @@ const StatisticsScreen = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.header}>Statistics</Text>
+
         <PieChart
           data={genreData}
           width={screenWidth}

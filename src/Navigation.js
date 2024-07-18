@@ -40,7 +40,7 @@ function SearchStackScreen() {
 function StatisticsStackScreen() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="StatisticsMain" component={StatisticsScreen} options={{ title: 'Library Statistics' }} />
+      <Stack.Screen name="StatisticsMain" component={StatisticsScreen} options={{ title: 'Library Statistics' , headerShown: false }} />
     </Stack.Navigator>
   );
 }

@@ -1,9 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet,  } from 'react-native';
 import colors from '../../themes'; // Ensure this is the correct path
+
 
 export default StyleSheet.create({
   safeArea: {
     flex: 1,
+    paddingTop: 30,
     backgroundColor: colors.background,
   },
   container: {

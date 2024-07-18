@@ -4,6 +4,7 @@ import colors from '../../../../themes.js';
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+    paddingTop: 20,
     backgroundColor: colors.background,
   },
   container: {
