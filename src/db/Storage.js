@@ -1,5 +1,54 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as FileSystem from 'expo-file-system';
+import { js2xml } from 'xml-js';
 
+
+//export db
+export const exportDataToXML = async () => {
+  try {
+    const libraryBooks = await fetchBooksFromLibrary();
+    const wantToReadBooks = await fetchBooksFromWantToRead();
+
+    const exportData = {
+      library: { book: libraryBooks },
+      wantToRead: { book: wantToReadBooks }
+    };
+
+    const xmlOptions = { compact: true, ignoreComment: true, spaces: 4 };
+    const xmlString = js2xml(exportData, xmlOptions);
+
+    const fileUri = FileSystem.documentDirectory + 'booksData.xml';
+    await FileSystem.writeAsStringAsync(fileUri, xmlString);
+    console.log('Data exported to:', fileUri);
+    return fileUri; // Return the file URI to handle file sharing or uploading if needed
+  } catch (error) {
+    console.error('Failed to export data:', error);
+  }
+};
+
+//import db
+export const importDataFromXML = async (fileUri) => {
+  try {
+    const xmlString = await FileSystem.readAsStringAsync(fileUri);
+    const data = xml2js(xmlString, { compact: true });
+
+    if (data.library && Array.isArray(data.library.book)) {
+      for (const book of data.library.book) {
+        await saveBookToLibrary(book._text ? JSON.parse(book._text) : book);
+      }
+    }
+
+    if (data.wantToRead && Array.isArray(data.wantToRead.book)) {
+      for (const book of data.wantToRead.book) {
+        await saveBookToWantToRead(book._text ? JSON.parse(book._text) : book);
+      }
+    }
+
+    console.log('Data imported successfully.');
+  } catch (error) {
+    console.error('Failed to import data:', error);
+  }
+};
 
 // Save a book to the library collection
 export const saveBookToLibrary = async (book) => {
