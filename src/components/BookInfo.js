@@ -50,6 +50,12 @@ const BookDetailInfo = ({ book }) => {
                     <Text style={styles.value}>{book.genre}</Text>
                 </View>
             )}
+            {book.pageCount && (
+                <View style={styles.detail}>
+                    <Text style={styles.label}>Pages:</Text>
+                    <Text style={styles.value}>{book.pageCount}</Text>
+                </View>
+            )}
             {book.isbn && (
                 <View style={styles.detail}>
                     <Text style={styles.label}>ISBN: </Text>
