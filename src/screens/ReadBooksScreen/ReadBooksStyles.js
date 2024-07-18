@@ -2,6 +2,10 @@ import { StyleSheet } from 'react-native';
 import colors from '../../themes'; // Ensure this is the correct path
 
 export default StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
   container: {
     flex: 1,
     backgroundColor: colors.background,
@@ -42,7 +46,4 @@ export default StyleSheet.create({
     fontSize: 18,
     color: '#555',
   },
-  
 });
-
-

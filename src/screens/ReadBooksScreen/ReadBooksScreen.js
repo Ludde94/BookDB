@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { View, Text, ScrollView, RefreshControl, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { View, Text, ScrollView, RefreshControl, TouchableOpacity, SafeAreaView } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 
 import styles from './ReadBooksStyles';
@@ -50,23 +50,25 @@ export default function ReadBooksScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <TabHeader activeTab={activeTab} setActiveTab={setActiveTab} />
-      <ScrollView
-        style={styles.bookList}
-        contentContainerStyle={{ flexGrow: 1 }}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-      >
-        {books.length > 0 ? (
-          books.map((book, index) => (
-            <BooksCardEdit key={index} book={book} navigation={navigation} />
-          ))
-        ) : (
-          <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>No books found.</Text>
-          </View>
-        )}
-      </ScrollView>
-    </View>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <TabHeader activeTab={activeTab} setActiveTab={setActiveTab} />
+        <ScrollView
+          style={styles.bookList}
+          contentContainerStyle={{ flexGrow: 1 }}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+        >
+          {books.length > 0 ? (
+            books.map((book, index) => (
+              <BooksCardEdit key={index} book={book} navigation={navigation} />
+            ))
+          ) : (
+            <View style={styles.emptyContainer}>
+              <Text style={styles.emptyText}>No books found.</Text>
+            </View>
+          )}
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   );
 }

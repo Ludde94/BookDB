@@ -26,8 +26,7 @@ export default function Scanner({ navigation }) {
   const handleBarCodeScanned = ({ type, data }) => {
     setIsScanning(false); // Disable further scanning once a barcode is scanned
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-    navigation.navigate('AddBook', { scannedData: data });
-  };
+    navigation.navigate('SearchMain', { scannedData: data });  };
 
   function enableScanning() {
     setIsScanning(true); // Re-enable scanning when needed

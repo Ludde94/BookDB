@@ -20,8 +20,8 @@ const Stack = createStackNavigator();
 function ReadBooksStackScreen() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="ReadBooksMain" component={ReadBooksScreen} options={{ title: 'My Library' }} />
-      <Stack.Screen name="WishlistMain" component={WishlistScreen} options={{ title: 'Wishlist' }} />
+      <Stack.Screen name="ReadBooksMain" component={ReadBooksScreen} options={{ title: 'My Library', headerShown: false  }} />
+      <Stack.Screen name="WishlistMain" component={WishlistScreen} options={{ title: 'Wishlist' , headerShown: false  }} />
       <Stack.Screen name="EditBook" component={EditBookScreen} options={{ title: 'Edit Book' }} />
     </Stack.Navigator>
   );
