@@ -16,13 +16,15 @@ export default StyleSheet.create({
     overflow: 'hidden',
   },
   bookImage: {
-    width: 100,
-    height: 150,
-    resizeMode: 'cover'
+    width: 70, // Reduced width
+    height: 100, // Reduced height to maintain aspect ratio
+    resizeMode: 'contain', // Changed to 'contain' to ensure the entire image fits without stretching
+    margin: 10, // Added margin for visual spacing
   },
   textContainer: {
     flex: 1,
     padding: 10,
+    justifyContent: 'center' // Added to vertically align text in the center
   },
   title: {
     fontSize: 16,
