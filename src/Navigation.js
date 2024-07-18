@@ -72,8 +72,9 @@ function Navigation() {
           })}
         >
           <Tab.Screen name="Home" component={ReadBooksStackScreen} options={{ headerShown: false }} />
-          <Tab.Screen name="Search" component={SearchStackScreen} options={{ headerShown: false }} />
           <Tab.Screen name="Statistics" component={StatisticsStackScreen} options={{ headerShown: false }} />
+          <Tab.Screen name="Search" component={SearchStackScreen} options={{ headerShown: false }} />
+
         </Tab.Navigator>
       </NavigationContainer>
     </SafeAreaView>

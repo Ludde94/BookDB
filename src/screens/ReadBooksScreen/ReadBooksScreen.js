@@ -53,7 +53,6 @@ export default function ReadBooksScreen({ navigation }) {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <TabHeader activeTab={activeTab} setActiveTab={setActiveTab} />
-        <BookFilter></BookFilter>
         <ScrollView
           style={styles.bookList}
           contentContainerStyle={{ flexGrow: 1 }}
