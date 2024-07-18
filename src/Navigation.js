@@ -23,8 +23,24 @@ function ReadBooksStackScreen() {
       <Stack.Screen name="ReadBooksMain" component={ReadBooksScreen} options={{ title: 'My Library' }} />
       <Stack.Screen name="WishlistMain" component={WishlistScreen} options={{ title: 'Wishlist' }} />
       <Stack.Screen name="EditBook" component={EditBookScreen} options={{ title: 'Edit Book' }} />
+    </Stack.Navigator>
+  );
+}
+
+function SearchStackScreen() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="SearchMain" component={AddBookScreen} options={{ title: 'Search Books', headerShown: false }} />
       <Stack.Screen name="BookDetails" component={BookDetailScreen} options={{ title: 'Book Details' }} />
       <Stack.Screen name="Scanner" component={Scanner} options={{ title: 'Scan Book Barcode' }} />
+    </Stack.Navigator>
+  );
+}
+
+function StatisticsStackScreen() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="StatisticsMain" component={StatisticsScreen} options={{ title: 'Library Statistics' }} />
     </Stack.Navigator>
   );
 }
@@ -56,8 +72,8 @@ function Navigation() {
           })}
         >
           <Tab.Screen name="Home" component={ReadBooksStackScreen} options={{ headerShown: false }} />
-          <Tab.Screen name="Statistics" component={StatisticsScreen} options={{ headerShown: false }} />
-          <Tab.Screen name="Search" component={AddBookScreen} options={{ headerShown: false }} />
+          <Tab.Screen name="Search" component={SearchStackScreen} options={{ headerShown: false }} />
+          <Tab.Screen name="Statistics" component={StatisticsStackScreen} options={{ headerShown: false }} />
         </Tab.Navigator>
       </NavigationContainer>
     </SafeAreaView>
