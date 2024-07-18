@@ -66,7 +66,7 @@ function Navigation() {
                 case 'Home': iconName = 'library-books'; break;
                 case 'Search': iconName = 'search'; break;
                 case 'Statistics': iconName = 'bar-chart'; break;
-                default: iconName = 'layers'; break;
+                case 'Settings': iconName = 'settings'; break;
               }
               return (
                 <View style={{ width: '100%', alignItems: 'center', justifyContent: 'center' }}>
