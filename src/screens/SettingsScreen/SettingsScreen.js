@@ -1,45 +1,65 @@
-import React from 'react';
-import { SafeAreaView, ScrollView, Text, Button, Alert } from 'react-native';
-import * as DocumentPicker from 'expo-document-picker';
-import * as Sharing from 'expo-sharing';
-import { exportDataToXML, importDataFromXML  } from '../../db/Storage'; // Adjust the path if necessary
-import styles from './SettingsStyles';
+import React from "react";
+import { SafeAreaView, ScrollView, Text, Button, Alert } from "react-native";
+import * as DocumentPicker from "expo-document-picker";
+import * as Sharing from "expo-sharing";
+import {
+  exportDataToXML,
+  importDataFromXML,
+  fetchBooksFromLibrary,
+  fetchBooksFromWantToRead,
+} from "../../db/Storage";
+import styles from "./SettingsStyles";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as FileSystem from "expo-file-system";
 
 function SettingsScreen({ route }) {
   const handleExport = async () => {
     try {
-      const fileUri = await exportDataToXML();
-      if (fileUri) {
-        await Sharing.shareAsync(fileUri);
-        Alert.alert('Success', 'Data exported successfully.');
-      } else {
-        Alert.alert('Error', 'Failed to export data.');
-      }
+      const libraryBooks = await fetchBooksFromLibrary();
+      const wantToReadBooks = await fetchBooksFromWantToRead();
+      const allBooksData = { libraryBooks, wantToReadBooks };
+      const xmlData = await exportDataToXML(allBooksData); // Assuming you have a function to convert JSON to XML
+      const filePath = FileSystem.cacheDirectory + "booksData.xml";
+      await FileSystem.writeAsStringAsync(filePath, xmlData, {
+        encoding: FileSystem.EncodingType.UTF8,
+      });
+      await Sharing.shareAsync(filePath);
     } catch (error) {
-      console.error('Error exporting data:', error);
-      Alert.alert('Error', 'An error occurred while exporting data.');
+      Alert.alert("Error", "Failed to export data: " + error.message);
     }
   };
 
   const handleImport = async () => {
+    console.log("first log");
     try {
-      const result = await DocumentPicker.getDocumentAsync({ type: '*/*' }); // Allow all types for debugging
-      console.log('DocumentPicker result:', result);
+      const result = await DocumentPicker.getDocumentAsync({
+        type: "*/*", // Consider specifying this more strictly if possible
+        copyToCacheDirectory: true,
+      });
+      console.log("Document picker result:", result);
+
+      // Check if the picker was not canceled and assets are present
       if (!result.canceled && result.assets && result.assets.length > 0) {
-        const fileUri = result.assets[0].uri;
-        console.log('Selected file URI:', fileUri);
-        if (fileUri) {
-          await importDataFromXML(fileUri);
-          Alert.alert('Success', 'Data imported successfully.');
-        } else {
-          Alert.alert('Error', 'Failed to get file URI.');
-        }
+        console.log("second log");
+        const fileUri = result.assets[0].uri; // Adjust this line to correctly pick the URI from assets
+        const fileContent = await FileSystem.readAsStringAsync(fileUri);
+        console.log("File content retrieved:", fileContent.slice(0, 100)); // Log first 100 chars of the file content
+
+        const booksData = await importDataFromXML(fileContent);
+        console.log("Data parsed, starting to save...");
+        await Promise.all([
+          ...booksData.libraryBooks.map((book) => saveBookToLibrary(book)),
+          ...booksData.wantToReadBooks.map((book) =>
+            saveBookToWantToRead(book)
+          ),
+        ]);
+        Alert.alert("Success", "Data imported successfully");
       } else {
-        console.log('DocumentPicker canceled or no assets found.');
+        console.log("Document picker exited without picking a file");
       }
     } catch (error) {
-      console.error('Error importing data:', error);
-      Alert.alert('Error', 'An error occurred while importing data.');
+      console.error("Import failed", error);
+      Alert.alert("Error", "Failed to import data: " + error.message);
     }
   };
 
