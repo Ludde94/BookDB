@@ -13,7 +13,7 @@ function SettingsScreen({ route }) {
            <Text>SETTINGS</Text>
 
 
-           <Text>SETTINGS</Text>
+
 
         </SafeAreaView>
     );
