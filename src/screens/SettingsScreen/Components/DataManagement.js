@@ -1,8 +1,9 @@
 import React from "react";
-import { Button, Alert } from "react-native";
+import { Button, Alert, Text, TouchableOpacity, View } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
 import * as Sharing from "expo-sharing";
 import * as FileSystem from "expo-file-system";
+import styles from "./Styles/DataManagementStyles";
 import {
   exportDataToXML,
   importDataFromXML,
@@ -57,10 +58,15 @@ const DataManagement = () => {
   };
 
   return (
-    <>
-      <Button title="Export Data" onPress={handleExport} />
-      <Button title="Import Data" onPress={handleImport} />
-    </>
+    <View style={styles.container}>
+      <Text style={styles.header}>Data Management</Text>
+      <TouchableOpacity style={styles.option} onPress={handleExport}>
+        <Text style={styles.optionText}>Export Data</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.option} onPress={handleImport}>
+        <Text style={styles.optionText}>Import Data</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 

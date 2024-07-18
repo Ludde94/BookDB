@@ -1,12 +1,12 @@
 import React from "react";
 import { SafeAreaView, ScrollView, Text } from "react-native";
 import DataManagement from "./Components/DataManagement";
+import styles from "./SettingsStyles";
 
 function SettingsScreen({ route }) {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.container}>
       <ScrollView>
-        <Text>Settings</Text>
         <DataManagement />
       </ScrollView>
     </SafeAreaView>
