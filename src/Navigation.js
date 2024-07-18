@@ -12,6 +12,7 @@ import BookDetailScreen from './screens/BookDetailScreen/BookDetailScreen';
 import Scanner from './screens/ScannerScreen/ScannerScreen';
 import EditBookScreen from './screens/EditBookScreen/EditBookScreen';
 import StatisticsScreen from './screens/StatisticsScreen/StatisticsScreen';
+import SettingsScreen from './screens/SettingsScreen/SettingsScreen';
 import colors from './themes';
 
 const Tab = createBottomTabNavigator();
@@ -45,6 +46,14 @@ function StatisticsStackScreen() {
   );
 }
 
+function SettingsStackScreen(){
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name='SettingsMain' component={SettingsScreen} options={{title: 'Settings', headerShown: false}}/>
+    </Stack.Navigator>
+  )
+}
+
 function Navigation() {
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -73,6 +82,7 @@ function Navigation() {
         >
           <Tab.Screen name="Home" component={ReadBooksStackScreen} options={{ headerShown: false }} />
           <Tab.Screen name="Statistics" component={StatisticsStackScreen} options={{ headerShown: false }} />
+          <Tab.Screen name="Settings" component={SettingsStackScreen} options={{headerShown: false}}/>
           <Tab.Screen name="Search" component={SearchStackScreen} options={{ headerShown: false }} />
 
         </Tab.Navigator>
