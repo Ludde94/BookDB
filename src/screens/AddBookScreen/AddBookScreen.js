@@ -1,16 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { View, FlatList, Button, SafeAreaView, StyleSheet } from 'react-native';
-import globalStyles from '../../styles/globalStyles';
-import colors from '../../themes';
-import BookCardMoreInfo from '../../components/BookCardMoreInfo';
-import SearchBar from '../../components/SearchBar';
-import searchBooks from '../../api/ApiCalls';
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  FlatList,
+  Button,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+} from "react-native";
+import globalStyles from "../../styles/globalStyles";
+import colors from "../../themes";
+import BookCard from "../../components/BookCard";
+import SearchBar from "../../components/SearchBar";
+import searchBooks from "../../api/ApiCalls";
 
 export default function AddBookScreen({ navigation, route }) {
   const [books, setBooks] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
-  const [searchQuery, setSearchQuery] = useState('Harry Potter');
-  const [hasMoreBooks, setHasMoreBooks] = useState(true);  // State to track if there are more books to load
+  const [searchQuery, setSearchQuery] = useState("Harry Potter");
+  const [hasMoreBooks, setHasMoreBooks] = useState(true);
 
   useEffect(() => {
     if (route.params?.scannedData) {
@@ -28,11 +35,11 @@ export default function AddBookScreen({ navigation, route }) {
 
   const fetchData = async (query, startIndex) => {
     const result = await searchBooks(query, startIndex);
-    if (result.length < 10) {  // Assuming the API returns up to 10 books per call
-      setHasMoreBooks(false);  // No more books to load
+    if (result.length < 10) {
+      setHasMoreBooks(false);
     }
     if (startIndex > 0) {
-      setBooks(prev => [...prev, ...result]);
+      setBooks((prev) => [...prev, ...result]);
     } else {
       setBooks(result);
     }
@@ -41,7 +48,7 @@ export default function AddBookScreen({ navigation, route }) {
   const handleSearch = (query) => {
     setSearchQuery(query);
     setStartIndex(0);
-    setHasMoreBooks(true);  // Reset the pagination and availability of more books
+    setHasMoreBooks(true);
   };
 
   const handleLoadMore = () => {
@@ -56,14 +63,32 @@ export default function AddBookScreen({ navigation, route }) {
     setSearchQuery(data);
   };
 
+  const renderItem = ({ item, index }) => (
+    <BookCard
+      key={index}
+      book={item}
+      onPress={() => navigation.navigate("BookDetails", { book: item })}
+    />
+  );
+
+  const renderEmptyComponent = () => (
+    <View style={styles.emptyContainer}>
+      <Text style={styles.emptyText}>No books found.</Text>
+    </View>
+  );
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View>
-        <SearchBar onSearch={handleSearch} onScan={() => navigation.navigate('Scanner')} />
+        <SearchBar
+          onSearch={handleSearch}
+          onScan={() => navigation.navigate("Scanner")}
+        />
         <FlatList
           data={books}
-          renderItem={({ item }) => <BookCardMoreInfo book={item} navigation={navigation} />}
-          keyExtractor={(item, index) => 'key' + index}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => "key" + index}
+          ListEmptyComponent={renderEmptyComponent}
           onEndReached={handleLoadMore}
           onEndReachedThreshold={0.5}
         />
@@ -77,5 +102,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
     paddingTop: 25,
+  },
+  emptyContainer: {
+    // Style your empty container here
+  },
+  emptyText: {
+    // Style your empty text here
   },
 });
