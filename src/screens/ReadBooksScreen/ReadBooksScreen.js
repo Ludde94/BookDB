@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import {
   View,
   Text,
@@ -11,7 +11,7 @@ import { useFocusEffect } from "@react-navigation/native";
 
 import styles from "./ReadBooksStyles";
 import BookCard from "../../components/BookCard";
-import BookFilter from "../../components/BookFilter";
+import BookFilter from "../../components/BookFilter"; // Assuming you have this component
 import {
   fetchBooksFromLibrary,
   fetchBooksFromWantToRead,
@@ -52,25 +52,58 @@ const TabHeader = ({ activeTab, setActiveTab }) => {
   );
 };
 
+const FilterComponent = ({ filter, setFilter }) => {
+  return (
+    <View style={styles.filterContainer}>
+      <Text style={styles.filterLabel}>Sort By:</Text>
+      <TouchableOpacity
+        style={styles.filterButton}
+        onPress={() => setFilter("Recently Added")}
+      >
+        <Text style={filter === "Recently Added" ? styles.activeFilterText : styles.filterText}>
+          Recently Added
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.filterButton}
+        onPress={() => setFilter("Alphabetical")}
+      >
+        <Text style={filter === "Alphabetical" ? styles.activeFilterText : styles.filterText}>
+          Alphabetical
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
 export default function ReadBooksScreen({ navigation }) {
   const [books, setBooks] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [activeTab, setActiveTab] = useState("My Library");
+  const [filter, setFilter] = useState("Recently Added");
 
   const loadBooks = async () => {
+    let fetchedBooks;
     if (activeTab === "My Library") {
-      const fetchedBooks = await fetchBooksFromLibrary();
-      setBooks(fetchedBooks);
+      fetchedBooks = await fetchBooksFromLibrary();
     } else {
-      const fetchedBooks = await fetchBooksFromWantToRead();
-      setBooks(fetchedBooks);
+      fetchedBooks = await fetchBooksFromWantToRead();
     }
+
+    // Apply the selected filter
+    if (filter === "Alphabetical") {
+      fetchedBooks.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (filter === "Recently Added") {
+      fetchedBooks.sort((a, b) => new Date(b.addedDate) - new Date(a.addedDate));
+    }
+
+    setBooks(fetchedBooks);
   };
 
   useFocusEffect(
     useCallback(() => {
       loadBooks();
-    }, [activeTab])
+    }, [activeTab, filter])
   );
 
   const onRefresh = async () => {
@@ -83,6 +116,7 @@ export default function ReadBooksScreen({ navigation }) {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <TabHeader activeTab={activeTab} setActiveTab={setActiveTab} />
+        <FilterComponent filter={filter} setFilter={setFilter} />
         <ScrollView
           style={styles.bookList}
           contentContainerStyle={{ flexGrow: 1 }}
