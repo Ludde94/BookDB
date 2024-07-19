@@ -67,7 +67,7 @@ export default function AddBookScreen({ navigation, route }) {
     <BookCard
       key={index}
       book={item}
-      onPress={() => navigation.navigate("BookDetails", { book: item })}
+      onPress={() => navigation.navigate("EditBook", { book: item })}
     />
   );
 
