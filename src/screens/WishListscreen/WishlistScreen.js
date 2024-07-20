@@ -1,14 +1,22 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, StyleSheet, ScrollView, RefreshControl, TouchableOpacity, SafeAreaView } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
-import { fetchBooksFromWantToRead } from '../../db/Storage'; 
-import BooksCardEdit from '../../components/BookCardEdit'; 
-import styles from './WishlistStyles';
+import React, { useEffect, useState, useCallback } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  RefreshControl,
+  TouchableOpacity,
+  SafeAreaView,
+} from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
+import { fetchBooksFromWantToRead } from "../../db/Storage";
+import BookCard from "../../components/BookCard";
+import styles from "./WishlistStyles";
 
-export default function WishlistScreen({navigation, route }) {
+export default function WishlistScreen({ navigation, route }) {
   const [books, setBooks] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
-  const [activeTab, setActiveTab] = useState('Wishlist');
+  const [activeTab, setActiveTab] = useState("Wishlist");
 
   const loadBooks = async () => {
     const fetchedBooks = await fetchBooksFromWantToRead();
@@ -29,10 +37,10 @@ export default function WishlistScreen({navigation, route }) {
 
   const handleTabPress = (tab) => {
     setActiveTab(tab);
-    if (tab === 'My Library') {
-      navigation.navigate('ReadBooksMain');
+    if (tab === "My Library") {
+      navigation.navigate("ReadBooksMain");
     } else {
-      navigation.navigate('WishlistMain');
+      navigation.navigate("WishlistMain");
     }
   };
 
@@ -40,13 +48,37 @@ export default function WishlistScreen({navigation, route }) {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <View style={styles.tabContainer}>
-          <TouchableOpacity style={styles.tab} onPress={() => handleTabPress('My Library')}>
-            <Text style={activeTab === 'My Library' ? styles.activeTabText : styles.tabText}>My Library</Text>
-            {activeTab === 'My Library' && <View style={styles.activeTabIndicator} />}
+          <TouchableOpacity
+            style={styles.tab}
+            onPress={() => handleTabPress("My Library")}
+          >
+            <Text
+              style={
+                activeTab === "My Library"
+                  ? styles.activeTabText
+                  : styles.tabText
+              }
+            >
+              My Library
+            </Text>
+            {activeTab === "My Library" && (
+              <View style={styles.activeTabIndicator} />
+            )}
           </TouchableOpacity>
-          <TouchableOpacity style={styles.tab} onPress={() => handleTabPress('Wishlist')}>
-            <Text style={activeTab === 'Wishlist' ? styles.activeTabText : styles.tabText}>Wishlist</Text>
-            {activeTab === 'Wishlist' && <View style={styles.activeTabIndicator} />}
+          <TouchableOpacity
+            style={styles.tab}
+            onPress={() => handleTabPress("Wishlist")}
+          >
+            <Text
+              style={
+                activeTab === "Wishlist" ? styles.activeTabText : styles.tabText
+              }
+            >
+              Wishlist
+            </Text>
+            {activeTab === "Wishlist" && (
+              <View style={styles.activeTabIndicator} />
+            )}
           </TouchableOpacity>
         </View>
         <ScrollView
@@ -56,7 +88,7 @@ export default function WishlistScreen({navigation, route }) {
           }
         >
           {books.map((book, index) => (
-            <BooksCardEdit key={index} book={book} navigation={navigation} />
+            <BookCard key={index} book={book} navigation={navigation} />
           ))}
         </ScrollView>
       </View>
