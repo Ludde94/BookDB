@@ -12,13 +12,17 @@ export const exportDataToXML = async () => {
 };
 
 export const importDataFromXML = async (fileContent) => {
-  const booksData = JSON.parse(fileContent);
-  await Promise.all(
-    booksData.libraryBooks.map((book) => saveBookToLibrary(book))
-  );
-  await Promise.all(
-    booksData.wantToReadBooks.map((book) => saveBookToWantToRead(book))
-  );
+  try {
+    const booksData = JSON.parse(fileContent);
+    await Promise.all(
+      booksData.wantToReadBooks.map((book) => saveBookToWantToRead(book))
+    );
+    await Promise.all(
+      booksData.libraryBooks.map((book) => saveBookToLibrary(book))
+    );
+  } catch (error) {
+    console.log("Error:" + error);
+  }
 };
 
 // Save a book to the library collection

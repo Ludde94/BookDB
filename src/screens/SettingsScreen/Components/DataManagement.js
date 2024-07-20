@@ -30,6 +30,7 @@ const DataManagement = () => {
 
   const handleImport = async () => {
     console.log("Attempting to import data...");
+
     try {
       const result = await DocumentPicker.getDocumentAsync({
         type: "*/*", // Consider specifying this more strictly if possible
@@ -40,6 +41,10 @@ const DataManagement = () => {
         const fileUri = result.assets[0].uri;
         const fileContent = await FileSystem.readAsStringAsync(fileUri);
         const booksData = await importDataFromXML(fileContent);
+
+        if (booksData === undefined) {
+          return;
+        }
 
         await Promise.all([
           ...booksData.libraryBooks.map((book) => saveBookToLibrary(book)),
@@ -52,8 +57,7 @@ const DataManagement = () => {
         console.log("No file selected.");
       }
     } catch (error) {
-      console.error("Import failed", error);
-      Alert.alert("Error", "Failed to import data: " + error.message);
+      console.error(error);
     }
   };
 
