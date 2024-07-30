@@ -15,7 +15,9 @@ const BooksCard = ({ book, onPress }) => {
       activeOpacity={0.9}
     >
       <Image
-        source={book.image ? { uri: book.image } : placeholderImage}
+        source={
+          book.image ? { uri: book.image, cache: "reload" } : placeholderImage
+        }
         style={styles.bookImage}
       />
       <View style={styles.textContainer}>
